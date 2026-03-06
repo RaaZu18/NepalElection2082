@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>नेपाल निर्वाचन २०८२ — Nepal Election Results 2082</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0906;--bg2:#131109;--bg3:#1c1912;--border:rgba(255,255,255,0.07);
+  --gold:#d4a843;--gold2:#f0c96a;--crimson:#c0392b;--ink:#f5f0e8;--mist:#8a7f72;
+  --verified:#22c55e;--partial:#f59e0b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .7s,visibility .7s}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none}
+.loader-nep{font-family:'Noto Serif Devanagari',serif;font-size:2.8rem;color:var(--gold);animation:glow 2s ease-in-out infinite;font-weight:600}
+@keyframes glow{0%,100%{text-shadow:0 0 15px rgba(212,168,67,.4)}50%{text-shadow:0 0 50px rgba(212,168,67,1),0 0 80px rgba(212,168,67,.3)}}
+.loader-bar{width:240px;height:2px;background:rgba(255,255,255,.1);border-radius:1px;overflow:hidden}
+.loader-fill{height:100%;background:linear-gradient(90deg,var(--crimson),var(--gold));animation:lf 2.8s ease forwards}
+@keyframes lf{0%{width:0}70%{width:80%}100%{width:100%}}
+.loader-msg{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--mist);letter-spacing:.18em;text-transform:uppercase}
+
+/* MASTHEAD */
+.masthead{position:sticky;top:0;z-index:200;background:rgba(10,9,6,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,168,67,.2)}
+.mast-inner{display:flex;align-items:center;gap:1rem;padding:.75rem clamp(1rem,3vw,2rem)}
+.mast-title{flex:1;min-width:0}
+.mast-nep{font-family:'Noto Serif Devanagari',serif;font-size:clamp(.75rem,1.8vw,1rem);color:var(--gold2);display:block;line-height:1.3;font-weight:600}
+.mast-eng{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.4vw,1.55rem);color:var(--ink);display:block;letter-spacing:-.01em;line-height:1.15;font-weight:600}
+.live-pill{display:flex;align-items:center;gap:.4rem;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.5);border-radius:4px;padding:.3rem .65rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;color:#ff6b5b;flex-shrink:0}
+.ldot{width:6px;height:6px;border-radius:50%;background:#ff4433;box-shadow:0 0 5px #ff4433;animation:pd 1.4s ease-in-out infinite}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+.mast-clock{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--gold);flex-shrink:0;letter-spacing:.04em}
+
+/* TICKER */
+.ticker{background:linear-gradient(90deg,var(--crimson),#a52520);padding:.45rem 0;overflow:hidden;z-index:199;position:relative}
+.tick-inner{display:flex;width:max-content;animation:tick 90s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{font-family:'JetBrains Mono',monospace;font-size:.65rem;white-space:nowrap;padding:0 2.5rem;display:flex;align-items:center;gap:.6rem;color:#fff;letter-spacing:.03em}
+.tick-item::before{content:'◆';font-size:.45rem;opacity:.6}
+
+/* NAV */
+.nav-tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:89px;z-index:190;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{font-family:'Outfit',sans-serif;font-weight:500;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.72rem 1.3rem;color:var(--mist);cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s,text-shadow .2s}
+.nav-tab:hover{color:var(--gold);border-bottom-color:rgba(212,168,67,.4);text-shadow:0 0 18px rgba(212,168,67,.5)}
+.nav-tab.active{color:var(--gold);border-bottom-color:var(--gold);background:rgba(212,168,67,.04);text-shadow:0 0 12px rgba(212,168,67,.3)}
+
+/* LAYOUT */
+.page{position:relative;z-index:1;padding:clamp(.75rem,2vw,1.5rem);max-width:1400px;margin:0 auto}
+.panel{display:none}
+.panel.active{display:block}
+
+/* SEC HDR */
+.sec-hdr{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;margin-top:1.75rem}
+.sec-hdr:first-child{margin-top:0}
+.sec-tag{font-family:'Outfit',sans-serif;font-weight:500;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:rgba(212,168,67,.07);border:1px solid rgba(212,168,67,.2);padding:.22rem .6rem;border-radius:3px;flex-shrink:0}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(212,168,67,.25),transparent)}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem}
+@media(max-width:640px){.stats-row{grid-template-columns:repeat(3,1fr)}}
+.stat-box{background:var(--bg2);padding:1.1rem 1rem;text-align:center;position:relative;overflow:hidden;transition:background .2s}
+.stat-box:hover{background:rgba(36,30,18,.95)}
+.stat-box::before{content:'';position:absolute;inset:0;background:radial-gradient(300px circle at var(--mx,-9999px) var(--my,-9999px),rgba(212,168,67,.1),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
+.stat-box:hover::before{opacity:1}
+.stat-v{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3.5vw,2.4rem);color:var(--gold2);display:block;line-height:1;margin-bottom:.22rem;font-weight:700}
+.stat-l{font-family:'Outfit',sans-serif;font-weight:400;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
+
+/* CONTEXT BANNER */
+.context-banner{background:rgba(26,58,92,.15);border:1px solid rgba(26,111,189,.25);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-family:'Libre Baskerville',serif;font-size:.79rem;line-height:1.7;color:rgba(245,240,232,.82)}
+.context-banner strong{color:var(--gold2);font-weight:700}
+
+/* AI BOX */
+.ai-box{background:rgba(14,42,84,.22);border:1px solid rgba(37,99,235,.2);border-radius:8px;padding:1rem;margin-bottom:1.5rem}
+.ai-hdr{display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem}
+.ai-icon{width:20px;height:20px;background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
+.ai-lbl{font-family:'Outfit',sans-serif;font-weight:500;font-size:.6rem;color:#60a5fa;letter-spacing:.1em;text-transform:uppercase}
+.ai-thinking{display:flex;align-items:center;gap:.3rem;margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.54rem;color:#60a5fa;letter-spacing:.04em}
+.td{width:4px;height:4px;border-radius:50%;background:#60a5fa;animation:tdp 1s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes tdp{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+#aiOut{font-family:'Libre Baskerville',serif;font-size:.78rem;color:rgba(245,240,232,.85);line-height:1.7;min-height:72px}
+.cursor{display:inline-block;width:2px;height:.9em;background:#60a5fa;margin-left:1px;animation:blink .8s step-end infinite;vertical-align:text-bottom}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* PARTY TABLE */
+.party-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem}
+.party-table th{font-family:'Outfit',sans-serif;font-weight:500;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);padding:.5rem .75rem;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+.party-table th:nth-child(n+3){text-align:right}
+.party-table td{padding:.75rem .75rem;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:middle}
+.party-table tbody tr{transition:background .15s}
+.party-table tbody tr:hover td{background:rgba(212,168,67,.03)!important}
+.p-sym{width:32px;height:32px;flex-shrink:0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;border:1px solid rgba(255,255,255,.1)}
+.p-fullname{font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;color:var(--ink)}
+.p-abbr{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--mist);margin-top:.08rem;letter-spacing:.04em}
+.seats-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;text-align:right}
+.lead-num{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--gold);text-align:right}
+.bar-wrap{min-width:110px;text-align:right}
+.bar-total{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;color:var(--ink)}
+.bar-bg{height:5px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:.35rem}
+.bar-fg{height:100%;border-radius:2px;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+.chg{font-family:'JetBrains Mono',monospace;font-size:.56rem;padding:.1rem .35rem;border-radius:2px;white-space:nowrap}
+.up{color:#4ade80;background:rgba(74,222,128,.1)}.dn{color:#f87171;background:rgba(248,113,113,.1)}.eq{color:var(--mist);background:rgba(255,255,255,.06)}
+.maj-row td{background:rgba(212,168,67,.04)!important;border-top:1px dashed rgba(212,168,67,.4);border-bottom:1px dashed rgba(212,168,67,.4)}
+.maj-label{font-family:'Outfit',sans-serif;font-weight:500;font-size:.6rem;color:var(--gold);letter-spacing:.12em;text-align:center!important;padding:.3rem!important;text-transform:uppercase}
+
+/* PARLIAMENT CHART */
+.parliament-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.parliament-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.parliament-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center}
+@media(max-width:700px){.parliament-layout{grid-template-columns:1fr}}
+#parlSvg{width:100%;max-width:340px;display:block;margin:0 auto}
+.parl-legend{display:flex;flex-direction:column;gap:.6rem}
+.parl-leg-row{display:flex;align-items:center;gap:.6rem;padding:.4rem .6rem;border-radius:6px;transition:background .15s}
+.parl-leg-row:hover{background:rgba(255,255,255,.04)}
+.parl-leg-sym{width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;border:1px solid rgba(255,255,255,.1)}
+.parl-leg-bar{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.parl-leg-fill{height:100%;border-radius:2px;transition:width 1.2s ease}
+.parl-leg-name{font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;color:var(--ink);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.parl-leg-seats{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;min-width:2rem;text-align:right;flex-shrink:0}
+.parl-leg-pct{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--mist);min-width:3rem;text-align:right;flex-shrink:0}
+.parl-tooltip{position:fixed;background:rgba(19,17,9,.97);border:1px solid rgba(212,168,67,.3);border-radius:6px;padding:.5rem .75rem;font-family:'Outfit',sans-serif;font-size:.72rem;color:var(--ink);pointer-events:none;z-index:9000;display:none;box-shadow:0 4px 20px rgba(0,0,0,.5);max-width:220px;line-height:1.4}
+
+/* SEARCH */
+.search-zone{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1.25rem;align-items:end}
+@media(max-width:700px){.search-zone{grid-template-columns:1fr}}
+.field-group{display:flex;flex-direction:column;gap:.3rem}
+.field-label{font-family:'Outfit',sans-serif;font-weight:500;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
+.field-input,.field-select{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:.55rem .85rem;color:var(--ink);font-family:'Outfit',sans-serif;font-size:.84rem;outline:none;transition:border-color .2s;width:100%}
+.field-input:focus,.field-select:focus{border-color:rgba(212,168,67,.4)}
+.field-input::placeholder{color:var(--mist);font-weight:300}
+.field-select option{background:#1c1912}
+.search-info{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--mist);margin-bottom:1rem}
+
+/* CONSTITUENCY GRID */
+.const-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem;margin-bottom:1.5rem}
+@media(max-width:480px){.const-grid{grid-template-columns:1fr}}
+.const-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .25s,transform .2s,box-shadow .25s;animation:fadeUp .35s ease backwards;position:relative}
+.const-card::before{content:'';position:absolute;inset:0;background:radial-gradient(350px circle at var(--mx,-9999px) var(--my,-9999px),rgba(212,168,67,.08),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none;border-radius:inherit;z-index:0}
+.const-card:hover::before{opacity:1}
+.const-card:hover{border-color:rgba(212,168,67,.35);transform:translateY(-2px);box-shadow:0 0 0 1px rgba(212,168,67,.1),0 8px 28px rgba(0,0,0,.4)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.const-header{padding:.7rem 1rem;background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem;position:relative;z-index:1}
+.const-num{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--mist);background:rgba(255,255,255,.06);padding:.14rem .42rem;border-radius:3px;flex-shrink:0}
+.const-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);flex:1;min-width:0;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.const-dist{font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--mist)}
+.count-pill{font-family:'JetBrains Mono',monospace;font-size:.54rem;padding:.1rem .38rem;border-radius:3px;flex-shrink:0}
+.cp-on{color:var(--partial);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25)}
+.cp-done{color:var(--verified);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2)}
+.cp-zero{color:var(--mist);background:rgba(255,255,255,.05);border:1px solid var(--border)}
+.cand-list{padding:.4rem 0;position:relative;z-index:1}
+.cand-row{display:grid;grid-template-columns:1.4rem 26px 1fr auto;align-items:center;gap:.4rem .6rem;padding:.42rem .9rem;transition:background .15s}
+.cand-row:hover{background:rgba(212,168,67,.04)}
+.cand-row.leader{background:rgba(212,168,67,.04)}
+.cand-rank{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--mist);text-align:center}
+.cand-row.leader .cand-rank{color:var(--gold)}
+.cand-sym{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.75rem;border:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.cand-info{min-width:0}
+.cand-name{font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cand-row.leader .cand-name{color:var(--gold2);font-weight:600}
+.cand-party-tag{font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--mist);margin-top:.06rem;letter-spacing:.03em}
+.cand-right{text-align:right}
+.cand-votes{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;display:block;line-height:1}
+.cand-row.leader .cand-votes{color:var(--gold2)}
+.cand-margin{font-family:'JetBrains Mono',monospace;font-size:.56rem;display:block;margin-top:.08rem}
+.m-ahead{color:#4ade80}.m-behind{color:#f87171}
+.cand-bars{padding:.25rem .9rem .55rem;position:relative;z-index:1}
+.cbar-row{display:flex;align-items:center;gap:.45rem;margin-bottom:.22rem}
+.cbar-sym{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.55rem;flex-shrink:0}
+.cbar-bg{flex:1;height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.cbar-fill{height:100%;border-radius:2px;transition:width .9s ease}
+.cbar-pct{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--mist);min-width:2.8rem;text-align:right}
+.const-footer{padding:.45rem .9rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.const-total{font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--mist)}
+.st-tag{font-family:'Outfit',sans-serif;font-weight:500;font-size:.56rem;padding:.1rem .38rem;border-radius:3px;letter-spacing:.06em;text-transform:uppercase}
+.st-counting{color:var(--partial);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25)}
+.st-declared{color:var(--verified);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2)}
+.st-pending{color:var(--mist);background:rgba(255,255,255,.05);border:1px solid var(--border)}
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--mist);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;grid-column:1/-1}
+
+/* HOT SEATS */
+.hotseat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.hs-card{background:var(--bg2);border:1px solid rgba(192,57,43,.25);border-radius:10px;overflow:hidden;animation:fadeUp .35s ease backwards;position:relative;transition:border-color .25s,box-shadow .25s}
+.hs-card::before{content:'';position:absolute;inset:0;background:radial-gradient(350px circle at var(--mx,-9999px) var(--my,-9999px),rgba(192,57,43,.07),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none;border-radius:inherit;z-index:0}
+.hs-card:hover::before{opacity:1}
+.hs-card:hover{border-color:rgba(192,57,43,.5);box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.hs-hdr{background:rgba(192,57,43,.1);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(192,57,43,.15);position:relative;z-index:1}
+.hs-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;color:var(--ink)}
+.hs-tag{font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.08em;color:var(--crimson);background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.3);padding:.1rem .35rem;border-radius:2px}
+.hs-body{padding:.75rem 1rem;position:relative;z-index:1}
+.hs-cand{display:flex;align-items:center;gap:.6rem;margin-bottom:.45rem}
+.hs-cand-sym{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.85rem;border:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.hs-cand-info{flex:1;min-width:0}
+.hs-cand-name{font-family:'Outfit',sans-serif;font-size:.83rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hs-cand-party{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--mist)}
+.hs-votes{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700}
+.hs-badge{font-family:'JetBrains Mono',monospace;font-size:.54rem;padding:.1rem .38rem;border-radius:3px;margin-left:.3rem;background:rgba(74,222,128,.08);color:#4ade80;border:1px solid rgba(74,222,128,.25)}
+.hs-note{font-family:'Libre Baskerville',serif;font-size:.67rem;color:var(--mist);line-height:1.55;font-style:italic;position:relative;z-index:1;padding:.5rem 1rem .7rem;border-top:1px solid var(--border)}
+
+/* PROVINCES */
+.prov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.prov-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.1rem;transition:border-color .25s,transform .2s,box-shadow .25s;position:relative;overflow:hidden}
+.prov-card::before{content:'';position:absolute;inset:0;background:radial-gradient(350px circle at var(--mx,-9999px) var(--my,-9999px),rgba(212,168,67,.08),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none;border-radius:inherit}
+.prov-card:hover::before{opacity:1}
+.prov-card:hover{border-color:rgba(212,168,67,.3);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.prov-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:.2rem;color:var(--ink);position:relative;z-index:1}
+.prov-meta{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--mist);margin-bottom:.7rem;position:relative;z-index:1}
+.prov-lead-lbl{font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:600;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem;position:relative;z-index:1}
+.prov-multibar{height:7px;border-radius:3px;overflow:hidden;display:flex;gap:1px;margin-bottom:.55rem;position:relative;z-index:1}
+.prov-seg{height:100%;transition:width 1s ease}
+.prov-legend{display:flex;flex-wrap:wrap;gap:.35rem;position:relative;z-index:1}
+.prov-leg-item{display:flex;align-items:center;gap:.25rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--mist)}
+.prov-leg-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* NEWS */
+.two-col{display:grid;grid-template-columns:1fr 340px;gap:1.25rem}
+@media(max-width:960px){.two-col{grid-template-columns:1fr}}
+.news-filters{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.nf-btn{font-family:'Outfit',sans-serif;font-weight:500;font-size:.62rem;letter-spacing:.06em;padding:.3rem .72rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--mist);cursor:pointer;transition:all .15s;text-transform:uppercase}
+.nf-btn.active{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.nf-btn:hover:not(.active){border-color:rgba(212,168,67,.35);color:var(--gold)}
+.news-list{display:flex;flex-direction:column;gap:.65rem}
+.news-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.9rem 1rem;animation:fadeUp .3s ease backwards;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.news-card::before{content:'';position:absolute;inset:0;background:radial-gradient(350px circle at var(--mx,-9999px) var(--my,-9999px),rgba(212,168,67,.07),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none;border-radius:inherit}
+.news-card:hover::before{opacity:1}
+.news-card:hover{border-color:rgba(212,168,67,.25);box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.nc-meta{display:flex;align-items:center;gap:.5rem;margin-bottom:.38rem;position:relative;z-index:1}
+.nc-source{font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
+.nc-time{font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--mist);margin-left:auto}
+.nc-hl{font-family:'Cormorant Garamond',serif;font-size:.94rem;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:.32rem;letter-spacing:-.01em;position:relative;z-index:1}
+.nc-sum{font-family:'Libre Baskerville',serif;font-size:.69rem;color:var(--mist);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;position:relative;z-index:1}
+.nc-footer{display:flex;align-items:center;gap:.4rem;margin-top:.48rem;position:relative;z-index:1}
+.v-badge{font-family:'Outfit',sans-serif;font-weight:500;font-size:.54rem;padding:.08rem .36rem;border-radius:2px;letter-spacing:.08em;text-transform:uppercase;border:1px solid}
+.vb-v{color:#4ade80;border-color:rgba(74,222,128,.3);background:rgba(74,222,128,.06)}
+.vb-p{color:var(--gold);border-color:rgba(212,168,67,.3);background:rgba(212,168,67,.06)}
+.vb-u{color:#fb923c;border-color:rgba(251,146,60,.3);background:rgba(251,146,60,.06)}
+.conf-dots{display:flex;gap:2px;margin-left:auto}
+.cd{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.12)}
+.cd.on{background:var(--gold)}
+.source-panel{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;position:sticky;top:100px;max-height:calc(100vh - 130px);overflow-y:auto}
+.sp-title{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-weight:600;margin-bottom:.875rem;color:var(--ink)}
+.src-item{display:flex;align-items:center;gap:.55rem;padding:.48rem 0;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s,padding-left .15s}
+.src-item:last-child{border-bottom:none}
+.src-item:hover{background:rgba(255,255,255,.03);padding-left:.3rem}
+.src-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.src-online{background:#4ade80;box-shadow:0 0 5px #4ade80}
+.src-slow{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+.src-offline{background:#f87171;box-shadow:0 0 4px #f87171}
+.src-name{font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:500;color:var(--ink);flex:1}
+.src-upd{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--mist)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
+
+/* RIPPLE */
+.ripple{position:absolute;border-radius:50%;background:rgba(212,168,67,.18);transform:scale(0);animation:ripA .55s ease-out forwards;pointer-events:none;z-index:5}
+@keyframes ripA{to{transform:scale(5);opacity:0}}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-nep">🇳🇵 नेपाल</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-msg">Loading verified election data…</div>
+</div>
+
+<div class="parl-tooltip" id="parlTip"></div>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <div class="mast-title">
+      <span class="mast-nep">नेपाल निर्वाचन परिणाम २०८२ · प्रतिनिधिसभा</span>
+      <span class="mast-eng">Nepal Election Results 2082 — House of Representatives</span>
+    </div>
+    <div class="live-pill"><span class="ldot"></span>LIVE</div>
+    <div class="mast-clock" id="clk">—</div>
+  </div>
+</header>
+
+<div class="ticker"><div class="tick-inner" id="tick"></div></div>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="switchTab('overview',this)">📊 Overview</button>
+  <button class="nav-tab" onclick="switchTab('search',this)">🔍 Constituency Search</button>
+  <button class="nav-tab" onclick="switchTab('hotseats',this)">🔥 Hot Seats</button>
+  <button class="nav-tab" onclick="switchTab('provinces',this)">🗺 Provinces</button>
+  <button class="nav-tab" onclick="switchTab('news',this)">📰 News Feed</button>
+</div>
+
+<!-- OVERVIEW -->
+<div class="page panel active" id="tab-overview">
+  <div class="stats-row">
+    <div class="stat-box"><span class="stat-v" id="s-lead">54</span><span class="stat-l">Seats Leading / Won</span></div>
+    <div class="stat-box"><span class="stat-v">275</span><span class="stat-l">Total HoR Seats</span></div>
+    <div class="stat-box"><span class="stat-v">165</span><span class="stat-l">FPTP Seats</span></div>
+    <div class="stat-box"><span class="stat-v">~60%</span><span class="stat-l">Voter Turnout</span></div>
+    <div class="stat-box"><span class="stat-v" id="s-won">1</span><span class="stat-l">Officially Declared</span></div>
+  </div>
+
+  <div class="context-banner">
+    <strong>Election Context (2082 BS / March 5, 2026):</strong> Called early after Sept 2025 Gen-Z protests killed 77, forcing PM <strong>KP Sharma Oli</strong> to resign. Interim PM <strong>Sushila Karki</strong> — Nepal's first female PM — oversaw the poll. <strong>Rastriya Swatantra Party (RSP)</strong> led by Balen Shah is dominating early counts, leading in 44 constituencies with 1 declared. <strong>RSP leads in 14 of 15 Kathmandu Valley seats.</strong> Final results expected March 7–10, 2026.
+  </div>
+
+  <div class="ai-box">
+    <div class="ai-hdr">
+      <div class="ai-icon">✦</div>
+      <span class="ai-lbl">Cross-Source AI Analysis</span>
+      <div class="ai-thinking" id="aiThink"><span class="td"></span><span class="td"></span><span class="td"></span><span style="margin-left:.3rem">Analyzing 12 sources</span></div>
+    </div>
+    <div id="aiOut"><span class="cursor"></span></div>
+  </div>
+
+  <div class="sec-hdr"><span class="sec-tag">Party Standing</span><div class="sec-line"></div></div>
+  <table class="party-table">
+    <thead><tr><th>#</th><th>Party</th><th>Won</th><th>Leading</th><th>Total / Progress</th><th>vs 2079</th></tr></thead>
+    <tbody id="partyTbody"></tbody>
+  </table>
+
+  <div class="sec-hdr"><span class="sec-tag">Parliament Composition</span><div class="sec-line"></div></div>
+  <div class="parliament-wrap">
+    <div class="parliament-layout">
+      <div>
+        <svg id="parlSvg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="parl-legend" id="parlLegend"></div>
+    </div>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--mist);margin-top:1rem;text-align:center;letter-spacing:.06em">MAJORITY = 138 OF 275 SEATS · FPTP TRENDS (165 SEATS) · COUNTING IN PROGRESS · HOVER SEGMENTS FOR DETAILS</p>
+  </div>
+</div>
+
+<!-- CONSTITUENCY SEARCH -->
+<div class="page panel" id="tab-search">
+  <div class="sec-hdr"><span class="sec-tag">Find Constituency / Candidate</span><div class="sec-line"></div></div>
+  <div class="search-zone">
+    <div class="field-group">
+      <label class="field-label">Search by Constituency / Candidate / District</label>
+      <input class="field-input" id="searchInput" placeholder="e.g. Jhapa, Balen Shah, Kathmandu-3…" oninput="doSearch()">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Filter by Province</label>
+      <select class="field-select" id="provFilter" onchange="doSearch()">
+        <option value="">All Provinces</option>
+        <option value="Koshi">Koshi</option>
+        <option value="Madhesh">Madhesh</option>
+        <option value="Bagmati">Bagmati</option>
+        <option value="Gandaki">Gandaki</option>
+        <option value="Lumbini">Lumbini</option>
+        <option value="Karnali">Karnali</option>
+        <option value="Sudurpashchim">Sudurpashchim</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Filter by Party</label>
+      <select class="field-select" id="partyFilter" onchange="doSearch()">
+        <option value="">All Parties</option>
+        <option value="RSP">RSP</option>
+        <option value="NC">NC</option>
+        <option value="UML">UML</option>
+        <option value="NCP">NCP</option>
+        <option value="RPP">RPP</option>
+        <option value="JSP">JSP</option>
+        <option value="UNP">Ujyaalo Nepal</option>
+        <option value="IND">Independent</option>
+      </select>
+    </div>
+  </div>
+  <div class="search-info" id="searchCount"></div>
+  <div class="const-grid" id="constGrid"></div>
+</div>
+
+<!-- HOT SEATS -->
+<div class="page panel" id="tab-hotseats">
+  <div class="sec-hdr"><span class="sec-tag">High-Profile Battles</span><div class="sec-line"></div></div>
+  <div class="context-banner" style="margin-bottom:1.25rem">
+    <strong>Most Watched Race:</strong> <strong>Jhapa-5</strong> — Balen Shah (RSP) vs KP Sharma Oli (UML). Symbolic generational clash. RSP leads by <strong>1,093 votes</strong> on ~20% count. Also: Prachanda in Rukum East-1 and Kulman Ghising in Kathmandu-3.
+  </div>
+  <div class="hotseat-grid" id="hotseatGrid"></div>
+</div>
+
+<!-- PROVINCES -->
+<div class="page panel" id="tab-provinces">
+  <div class="sec-hdr"><span class="sec-tag">Province-by-Province Results</span><div class="sec-line"></div></div>
+  <div class="prov-grid" id="provGrid"></div>
+</div>
+
+<!-- NEWS -->
+<div class="page panel" id="tab-news">
+  <div class="sec-hdr"><span class="sec-tag">Verified News Feed</span><div class="sec-line"></div></div>
+  <div class="two-col">
+    <div>
+      <div class="news-filters">
+        <button class="nf-btn active" onclick="setNF('all',this)">All</button>
+        <button class="nf-btn" onclick="setNF('results',this)">Results</button>
+        <button class="nf-btn" onclick="setNF('parties',this)">Parties</button>
+        <button class="nf-btn" onclick="setNF('analysis',this)">Analysis</button>
+      </div>
+      <div class="news-list" id="newsList"></div>
+    </div>
+    <div>
+      <div class="source-panel">
+        <div class="sp-title">Monitored Sources</div>
+        <div id="srcList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  PARTY DATA — with SVG symbols
+// ════════════════════════════════════════
+const PARTIES = [
+  {id:'RSP', name:'Rastriya Swatantra Party', abbr:'RSP', color:'#e85d04',
+   symbol:'⚡', symBg:'rgba(232,93,4,.15)', won:1, lead:43, seats2022:21},
+  {id:'NC',  name:'Nepali Congress',          abbr:'NC',  color:'#1a6fbd',
+   symbol:'🌳', symBg:'rgba(26,111,189,.15)', won:0, lead:4,  seats2022:89},
+  {id:'UML', name:'CPN-UML',                  abbr:'UML', color:'#dc2626',
+   symbol:'☀', symBg:'rgba(220,38,38,.15)',  won:0, lead:5,  seats2022:78},
+  {id:'NCP', name:'Nepali Communist Party',   abbr:'NCP', color:'#991b1b',
+   symbol:'⭐', symBg:'rgba(153,27,27,.15)', won:0, lead:3,  seats2022:0},
+  {id:'RPP', name:'Rastriya Prajatantra Party',abbr:'RPP',color:'#166534',
+   symbol:'🌿', symBg:'rgba(22,101,52,.15)', won:0, lead:1,  seats2022:14},
+  {id:'JSP', name:'Janata Samajbadi Party',   abbr:'JSP', color:'#b45309',
+   symbol:'✊', symBg:'rgba(180,83,9,.15)',  won:0, lead:0,  seats2022:12},
+  {id:'UNP', name:'Ujyaalo Nepal Party',      abbr:'UNP', color:'#0891b2',
+   symbol:'💡', symBg:'rgba(8,145,178,.15)', won:0, lead:1,  seats2022:0},
+  {id:'IND', name:'Independent',              abbr:'IND', color:'#6b7280',
+   symbol:'👤', symBg:'rgba(107,114,128,.15)',won:0,lead:0, seats2022:5},
+];
+
+const PSYM = {};
+PARTIES.forEach(p=>PSYM[p.id]=p);
+
+function getParty(id){ return PSYM[id]||{color:'#6b7280',symbol:'?',symBg:'rgba(100,100,100,.1)',abbr:id,name:id}; }
+
+// ════════════════════════════════════════
+//  CONSTITUENCY DATA
+// ════════════════════════════════════════
+const CONSTITUENCIES = [
+  {num:'KTM-1', name:'Kathmandu-1', district:'Kathmandu', province:'Bagmati', countPct:35, totalVotes:3800, declared:false,
+   candidates:[{name:'Ranju Nyaupane',party:'RSP',votes:1327},{name:'Prabal Thapa Chhetri',party:'NC',votes:1089},{name:'Mohan Raj Regmi',party:'NCP',votes:210}]},
+  {num:'KTM-3', name:'Kathmandu-3', district:'Kathmandu', province:'Bagmati', countPct:55, totalVotes:9569, declared:false,
+   candidates:[{name:'Raju Nath Pandey',party:'RSP',votes:4649},{name:'Kulman Ghising',party:'UNP',votes:3341},{name:'Ramesh Aryal',party:'NC',votes:1481}]},
+  {num:'JHP-5', name:'Jhapa-5', district:'Jhapa', province:'Koshi', countPct:20, totalVotes:1953, declared:false,
+   candidates:[{name:'Balendra Shah (Balen)',party:'RSP',votes:1478},{name:'KP Sharma Oli',party:'UML',votes:385},{name:'Ranjit Tamang',party:'NCP',votes:90}]},
+  {num:'LLT-3', name:'Lalitpur-3', district:'Lalitpur', province:'Bagmati', countPct:45, totalVotes:1951, declared:false,
+   candidates:[{name:'Tosima Karki',party:'RSP',votes:1748},{name:'Jitendra Kumar Shrestha',party:'NC',votes:168},{name:'Raj Kaji Maharjan',party:'NCP',votes:35}]},
+  {num:'BKT-2', name:'Bhaktapur-2', district:'Bhaktapur', province:'Bagmati', countPct:50, totalVotes:4633, declared:false,
+   candidates:[{name:'Rajiv Khatri',party:'RSP',votes:3060},{name:'Mahesh Basnet',party:'UML',votes:1573}]},
+  {num:'LLT-2', name:'Lalitpur-2', district:'Lalitpur', province:'Bagmati', countPct:40, totalVotes:0, declared:false,
+   candidates:[{name:'Pramila Kumari Rana',party:'RSP',votes:0},{name:'Dinesh Raj Bhatta',party:'NC',votes:0},{name:'Hira Devi Rai',party:'UML',votes:0}]},
+  {num:'TNH-1', name:'Tanahun-1', district:'Tanahun', province:'Gandaki', countPct:25, totalVotes:0, declared:false,
+   candidates:[{name:'Swarnim Wagle',party:'RSP',votes:0},{name:'Govinda Bhattarai',party:'NC',votes:0},{name:'Bhagwati Nyaupane',party:'UML',votes:0}]},
+  {num:'CHT-3', name:'Chitwan-3', district:'Chitwan', province:'Bagmati', countPct:20, totalVotes:0, declared:false,
+   candidates:[{name:'Renu Dahal',party:'NCP',votes:0},{name:'Tek Prasad Gurung',party:'NC',votes:0},{name:'Sobita Gautam',party:'RSP',votes:0}]},
+  {num:'MGD-1', name:'Myagdi-1', district:'Myagdi', province:'Gandaki', countPct:10, totalVotes:299, declared:false,
+   candidates:[{name:'Arjun Bahadur Thapa',party:'NCP',votes:201},{name:'Mahabir Pun',party:'IND',votes:61},{name:'Karna Bahadur Bhandari',party:'NC',votes:37}]},
+  {num:'DNH-4', name:'Dhanusha-4', district:'Dhanusha', province:'Madhesh', countPct:18, totalVotes:0, declared:false,
+   candidates:[{name:'Raghuvir Mahaseth',party:'UML',votes:0},{name:'Mahendra Yadav',party:'NC',votes:0},{name:'Indrajit Kumar Yadav',party:'JSP',votes:0}]},
+  {num:'SRL-4', name:'Sarlahi-4', district:'Sarlahi', province:'Madhesh', countPct:22, totalVotes:0, declared:false,
+   candidates:[{name:'Gagan Kumar Thapa',party:'NC',votes:0},{name:'Amanish Kumar Yadav',party:'UML',votes:0},{name:'Rameshwar Rai Yadav',party:'JSP',votes:0}]},
+  {num:'RKM-E1', name:'Rukum East-1', district:'Rukum East', province:'Lumbini', countPct:30, totalVotes:2263, declared:false,
+   candidates:[{name:'Pushpa Kamal Dahal (Prachanda)',party:'NCP',votes:1415},{name:'Lilamani Gautam',party:'UML',votes:431},{name:'Kusum Devi Thapa',party:'NC',votes:417}]},
+  {num:'GUL-2', name:'Gulmi-2', district:'Gulmi', province:'Lumbini', countPct:12, totalVotes:0, declared:false,
+   candidates:[{name:'Gokarnraj Bisht',party:'UML',votes:0},{name:'Bhuvan Prasad Shrestha',party:'NC',votes:0},{name:'Govind Panthi',party:'RSP',votes:0}]},
+  {num:'PLP-2', name:'Palpa-2', district:'Palpa', province:'Lumbini', countPct:14, totalVotes:0, declared:false,
+   candidates:[{name:'Thakur Prasad Gaire',party:'UML',votes:0},{name:'Som Prasad Pandey',party:'NCP',votes:0},{name:'Himal Datt Shrestha',party:'NC',votes:0}]},
+  {num:'ACH-1', name:'Achham-1', district:'Achham', province:'Sudurpashchim', countPct:8, totalVotes:0, declared:false,
+   candidates:[{name:'Bhim Bahadur Rawal',party:'NCP',votes:0},{name:'Bharat Kumar Swar',party:'NC',votes:0},{name:'Deepak Bahadur Saud',party:'UML',votes:0}]},
+  {num:'RTH-1', name:'Rautahat-1', district:'Rautahat', province:'Madhesh', countPct:0, totalVotes:0, declared:false,
+   candidates:[{name:'Anil Kumar Jha',party:'NC',votes:0},{name:'Madhav Kumar Nepal',party:'NCP',votes:0},{name:'Ajay Kumar Gupta',party:'UML',votes:0}]},
+  {num:'MRG-4', name:'Morang-4', district:'Morang', province:'Koshi', countPct:15, totalVotes:0, declared:false,
+   candidates:[{name:'Gururaj Ghimire',party:'NC',votes:0},{name:'Jeevan Ghimire',party:'UML',votes:0},{name:'Amanlal Modi',party:'NCP',votes:0}]},
+  {num:'JJK-1', name:'Jajarkot-1', district:'Jajarkot', province:'Karnali', countPct:10, totalVotes:0, declared:false,
+   candidates:[{name:'Giriraj Mani Pokhrel',party:'UML',votes:0},{name:'Gopal Hamal',party:'NC',votes:0},{name:'Rabindra Adhikari',party:'RSP',votes:0}]},
+  {num:'KNC-2', name:'Kanchanpur-2', district:'Kanchanpur', province:'Sudurpashchim', countPct:12, totalVotes:0, declared:false,
+   candidates:[{name:'Rajendra Kumar Shahi',party:'RPP',votes:0},{name:'Dil Bahadur Chand',party:'NC',votes:0},{name:'Prakash Bist',party:'UML',votes:0}]},
+  {num:'LTP-1', name:'Lamjung-1', district:'Lamjung', province:'Gandaki', countPct:15, totalVotes:0, declared:false,
+   candidates:[{name:'Prithvi Subba Gurung',party:'UML',votes:0},{name:'Dharma Raj KC',party:'RSP',votes:0},{name:'Gam Prasad Gurung',party:'NC',votes:0}]},
+];
+
+const HOTSEATS = [
+  {const:'Jhapa-5', district:'Jhapa', province:'Koshi', tag:'MOST WATCHED',
+   note:'Balen Shah (RSP) vs KP Sharma Oli (UML). Gen Z vs establishment. RSP leads by 1,093 votes on ~20% count.',
+   cands:[{name:'Balendra Shah (Balen)',party:'RSP',votes:1478},{name:'KP Sharma Oli',party:'UML',votes:385},{name:'Ranjit Tamang',party:'NCP',votes:90}]},
+  {const:'Kathmandu-3', district:'Kathmandu', province:'Bagmati', tag:'HIGH PROFILE',
+   note:'RSP vs Kulman Ghising (Ujyaalo Nepal). RSP leads but Ghising is within 1,308 votes at 55% count.',
+   cands:[{name:'Raju Nath Pandey',party:'RSP',votes:4649},{name:'Kulman Ghising',party:'UNP',votes:3341},{name:'Ramesh Aryal',party:'NC',votes:1481}]},
+  {const:'Rukum East-1', district:'Rukum East', province:'Lumbini', tag:'PRACHANDA',
+   note:'Former PM Prachanda (NCP) leads in traditional stronghold with 984-vote margin at 30% count.',
+   cands:[{name:'Pushpa Kamal Dahal (Prachanda)',party:'NCP',votes:1415},{name:'Lilamani Gautam',party:'UML',votes:431},{name:'Kusum Devi Thapa',party:'NC',votes:417}]},
+  {const:'Bhaktapur-2', district:'Bhaktapur', province:'Bagmati', tag:'RSP SURGE',
+   note:'RSP\'s Rajiv Khatri nearly double UML at 50% count. RSP dominance in Bagmati continues.',
+   cands:[{name:'Rajiv Khatri',party:'RSP',votes:3060},{name:'Mahesh Basnet',party:'UML',votes:1573}]},
+  {const:'Lalitpur-3', district:'Lalitpur', province:'Bagmati', tag:'RSP DOMINANCE',
+   note:'Tosima Karki (RSP) commanding lead — 10× more votes than NC at 45% count.',
+   cands:[{name:'Tosima Karki',party:'RSP',votes:1748},{name:'Jitendra Kumar Shrestha',party:'NC',votes:168},{name:'Raj Kaji Maharjan',party:'NCP',votes:35}]},
+  {const:'Myagdi-1', district:'Myagdi', province:'Gandaki', tag:'MAHABIR PUN',
+   note:'Tech activist Mahabir Pun running as Independent — trailing NCP in early count.',
+   cands:[{name:'Arjun Bahadur Thapa',party:'NCP',votes:201},{name:'Mahabir Pun',party:'IND',votes:61},{name:'Karna Bahadur Bhandari',party:'NC',votes:37}]},
+];
+
+const PROVINCES = [
+  {name:'Koshi',seats:28,leading:{RSP:8,UML:8,NC:6,NCP:4,other:2},districts:'14 districts (Jhapa, Morang, Sunsari…)'},
+  {name:'Madhesh',seats:32,leading:{JSP:10,NC:8,UML:7,NCP:5,other:2},districts:'8 districts (Dhanusha, Sarlahi, Rautahat…)'},
+  {name:'Bagmati',seats:55,leading:{RSP:22,NC:10,UML:10,NCP:7,UNP:4,other:2},districts:'13 districts (Kathmandu, Lalitpur, Bhaktapur…)'},
+  {name:'Gandaki',seats:28,leading:{NC:9,RSP:8,UML:6,NCP:3,RPP:2},districts:'11 districts (Kaski, Tanahun, Gorkha…)'},
+  {name:'Lumbini',seats:36,leading:{UML:10,NC:9,NCP:8,RSP:5,JSP:3,RPP:1},districts:'12 districts (Rupandehi, Dang, Banke…)'},
+  {name:'Karnali',seats:24,leading:{UML:9,NC:8,NCP:5,RPP:2},districts:'10 districts (Surkhet, Jajarkot, Jumla…)'},
+  {name:'Sudurpashchim',seats:29,leading:{UML:8,RPP:7,NC:7,NCP:4,RSP:2,IND:1},districts:'9 districts (Kailali, Kanchanpur, Doti…)'},
+];
+
+const NEWS = [
+  {src:'India.com/Reuters',time:'10:20 AM Mar 6',tag:'results',conf:5,vt:'v',
+   hl:'RSP leads in 44 constituencies — 1 seat officially declared',
+   sum:'Rastriya Swatantra Party dominates early counting nationwide. RSP has won 1 seat and leads in 44. In Kathmandu Valley, RSP ahead in 14 of 15 seats in early trends.'},
+  {src:'Ekantipur Live',time:'9:55 AM Mar 6',tag:'results',conf:5,vt:'v',
+   hl:'Rabi Lamichhane (RSP) leading in Chitwan with 2,801 of 6,623 counted',
+   sum:'Lamichhane holds 2,801 votes, UML\'s Asmin Ghimire at 1,259. Counting ongoing.'},
+  {src:'India.com/ECN',time:'9:40 AM Mar 6',tag:'results',conf:5,vt:'v',
+   hl:'Balen Shah leads KP Sharma Oli in Jhapa-5 by 1,093 votes in early count',
+   sum:'Shah has 1,478 vs Oli\'s 385 votes. Only ~20% counted. The symbolic Gen Z vs establishment race.'},
+  {src:'Election Commission Nepal',time:'9:30 AM Mar 6',tag:'results',conf:5,vt:'v',
+   hl:'Official: voter turnout confirmed at approximately 60%',
+   sum:'The Election Commission confirmed peaceful polling with ~60% turnout across 165 FPTP constituencies. Strong Gen Z participation recorded.'},
+  {src:'Wikipedia/Verified',time:'Mar 5, 2026',tag:'analysis',conf:5,vt:'v',
+   hl:'Context: Election triggered by Sept 2025 youth uprising — 77 killed under Oli government',
+   sum:'Election called early after protests. Interim PM Sushila Karki became Nepal\'s first female head of government. RSP now the primary youth-backed party.'},
+  {src:'ETCNepal/Ekantipur',time:'Mar 6, 2026',tag:'results',conf:4,vt:'v',
+   hl:'Kathmandu Valley: RSP ahead in KTM-1, 2, 3, 4, 5, 7, 8 and 10 in early trends',
+   sum:'RSP dominates urban Kathmandu. Ranju Nyaupane leads KTM-1 (1,327 votes), Raju Nath Pandey leads KTM-3 (4,649 votes).'},
+  {src:'India.com Live',time:'10:20 AM Mar 6',tag:'parties',conf:4,vt:'v',
+   hl:'CPN-UML facing historic losses from its 78 seats in 2022',
+   sum:'UML underperforming in urban areas but grassroots machinery active in hill districts. Only leading in 5 seats in early national count.'},
+  {src:'NepInsights',time:'Mar 5, 2026',tag:'analysis',conf:3,vt:'p',
+   hl:'Final nationwide results expected March 7–10 after counting completes',
+   sum:'Coalition negotiations likely regardless of final outcome. No single party expected to reach 138-seat majority threshold.'},
+];
+
+const SOURCES = [
+  {name:'Election Commission Nepal',status:'online',upd:'Live'},
+  {name:'Ekantipur / Kantipur',status:'online',upd:'~2 min'},
+  {name:'NepalVotes.live',status:'online',upd:'30 sec'},
+  {name:'Nepse Bajar Election',status:'online',upd:'~5 min'},
+  {name:'The Kathmandu Post',status:'online',upd:'~10 min'},
+  {name:'India.com Live Blog',status:'online',upd:'Live'},
+  {name:'OnlineKhabar',status:'online',upd:'~8 min'},
+  {name:'ETCNepal',status:'slow',upd:'~15 min'},
+  {name:'BBC Nepali',status:'online',upd:'~30 min'},
+  {name:'Wikipedia 2026',status:'online',upd:'Verified'},
+];
+
+const TICKERS = [
+  'RSP leads in 44 constituencies · 1 seat officially declared · Balen Shah vs KP Sharma Oli in Jhapa-5',
+  'RSP leading in 14 of 15 Kathmandu Valley constituencies in early trends',
+  'Voter turnout confirmed ~60% — strong Gen Z participation nationwide',
+  'Rabi Lamichhane (RSP) leads Chitwan with 2,801 of 6,623 votes counted',
+  'Prachanda (NCP) leads Rukum East-1 · 1,415 vs UML 431 on partial count',
+  'Final FPTP results expected by March 7, 2026 — PR results to follow',
+  'CPN-UML facing significant losses from its 78 seats in 2022 election',
+  'Kulman Ghising (Ujyaalo Nepal) makes surprising showing in Kathmandu-3',
+  'All data sourced from Election Commission Nepal and cross-verified sources',
+  'Coalition government widely expected regardless of final seat count',
+];
+
+const AI_TEXTS = [
+  'Cross-verified from ECN, Ekantipur, NepalVotes.live and India.com (March 6, 10:20 AM NPT): RSP leads in 44 constituencies with 1 officially declared. Kathmandu Valley is an RSP sweep — 14 of 15 seats showing RSP leads. The defining race: Balen Shah (RSP) leads KP Sharma Oli (UML) in Jhapa-5 by 1,093 votes at 20% count. CPN-UML significantly down from 2022. No coalition scenario yet calculable — final results expected March 7–10.',
+  'Political context (verified): This election followed the September 2025 Gen-Z uprising in which 77 protesters were killed. Interim PM Sushila Karki — Nepal\'s first female PM — oversaw the poll. RSP, led by former Kathmandu Mayor Balen Shah as PM candidate, is riding historic youth voter mobilization. NC, UML, and NCP all trailing in early urban counts.',
+  'Data reliability: Results shown are partial counts from result.election.gov.np, refreshed every 30 seconds by NepalVotes.live. Counting is 8–55% complete across constituencies. Do not treat leading figures as final. Official declarations proceed constituency-by-constituency through March 7–10, 2026.',
+];
+
+let newsFilter='all', aiIdx=0, aiChar=0;
+
+// ════════════════════════════════════════
+//  CLOCK
+// ════════════════════════════════════════
+function updateClock(){
+  const utc=Date.now()+new Date().getTimezoneOffset()*60000;
+  const npt=new Date(utc+5.75*3600000);
+  const t=npt.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  const d=npt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+  document.getElementById('clk').textContent=`NPT ${t} · ${d}`;
+}
+
+// ════════════════════════════════════════
+//  TABS
+// ════════════════════════════════════════
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  // Re-attach spotlights after panel switch
+  setTimeout(attachSpotlights,50);
+}
+
+// ════════════════════════════════════════
+//  TICKER
+// ════════════════════════════════════════
+function renderTicker(){
+  const msgs=[...TICKERS,...TICKERS];
+  document.getElementById('tick').innerHTML=msgs.map(m=>`<span class="tick-item">${m}</span>`).join('');
+}
+
+// ════════════════════════════════════════
+//  PARTY TABLE
+// ════════════════════════════════════════
+function renderPartyTable(){
+  const sorted=[...PARTIES].sort((a,b)=>(b.won+b.lead)-(a.won+a.lead));
+  const maxSeats=Math.max(...sorted.map(p=>p.won+p.lead))||1;
+  let rows='', majDone=false;
+
+  sorted.forEach((p,i)=>{
+    const total=p.won+p.lead;
+    const barW=(total/maxSeats)*100;
+    const diff=p.seats2022>0?total-p.seats2022:total;
+    const cls=diff>0?'up':diff<0?'dn':'eq';
+    const chg=diff>0?`▲ +${diff}`:diff<0?`▼ ${diff}`:'—';
+
+    if(!majDone && total<138 && i>0){
+      rows+=`<tr class="maj-row"><td colspan="6" class="maj-label">── 138 SEATS MAJORITY THRESHOLD ──</td></tr>`;
+      majDone=true;
+    }
+    rows+=`<tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--mist);text-align:right;padding-right:.5rem">${i+1}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <div class="p-sym" style="background:${p.symBg};color:${p.color}">${p.symbol}</div>
+          <div>
+            <div class="p-fullname">${p.name}</div>
+            <div class="p-abbr">${p.abbr}</div>
+          </div>
+        </div>
+      </td>
+      <td class="seats-num" style="color:${p.color}">${p.won}</td>
+      <td class="lead-num">${p.lead>0?'+'+p.lead:'—'}</td>
+      <td class="bar-wrap">
+        <span class="bar-total" style="color:${p.color}">${total}</span>
+        <div class="bar-bg"><div class="bar-fg" style="width:${barW}%;background:${p.color}"></div></div>
+      </td>
+      <td><span class="chg ${cls}">${chg}</span></td>
+    </tr>`;
+  });
+
+  if(!majDone) rows+=`<tr class="maj-row"><td colspan="6" class="maj-label">── 138 SEATS MAJORITY THRESHOLD ──</td></tr>`;
+  document.getElementById('partyTbody').innerHTML=rows;
+}
+
+// ════════════════════════════════════════
+//  PARLIAMENT DONUT CHART
+// ════════════════════════════════════════
+function renderParliament(){
+  const svg=document.getElementById('parlSvg');
+  const legend=document.getElementById('parlLegend');
+  const cx=160, cy=160, R=130, r=82;
+  const parties=PARTIES.filter(p=>p.won+p.lead>0).sort((a,b)=>(b.won+b.lead)-(a.won+a.lead));
+  const total=parties.reduce((s,p)=>s+p.won+p.lead,0)||1;
+  const MAJ=138;
+
+  let svgContent='';
+
+  // decorative outer ring
+  svgContent+=`<circle cx="${cx}" cy="${cy}" r="${R+8}" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.05)" stroke-width="1.5"/>`;
+  svgContent+=`<circle cx="${cx}" cy="${cy}" r="${R+1}" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>`;
+
+  // draw segments
+  let angle=-Math.PI/2; // start from top
+  const gap=0.025; // gap between segments in radians
+
+  parties.forEach(p=>{
+    const seats=p.won+p.lead;
+    const sweep=(seats/total)*Math.PI*2 - gap;
+    const startA=angle+gap/2;
+    const endA=startA+sweep;
+    const x1=cx+R*Math.cos(startA), y1=cy+R*Math.sin(startA);
+    const x2=cx+R*Math.cos(endA),   y2=cy+R*Math.sin(endA);
+    const ix1=cx+r*Math.cos(startA),iy1=cy+r*Math.sin(startA);
+    const ix2=cx+r*Math.cos(endA),  iy2=cy+r*Math.sin(endA);
+    const lg=sweep>Math.PI?1:0;
+
+    // outer glow
+    svgContent+=`<path d="M${x1},${y1} A${R},${R} 0 ${lg} 1 ${x2},${y2} L${ix2},${iy2} A${r},${r} 0 ${lg} 0 ${ix1},${iy1} Z"
+      fill="${p.color}" opacity=".15" stroke="none"/>`;
+
+    // main segment (slightly smaller for gap effect)
+    const R2=R-2, r2=r+2;
+    const ax1=cx+R2*Math.cos(startA+0.02), ay1=cy+R2*Math.sin(startA+0.02);
+    const ax2=cx+R2*Math.cos(endA-0.02),   ay2=cy+R2*Math.sin(endA-0.02);
+    const aix1=cx+r2*Math.cos(startA+0.02),aiy1=cy+r2*Math.sin(startA+0.02);
+    const aix2=cx+r2*Math.cos(endA-0.02),  aiy2=cy+r2*Math.sin(endA-0.02);
+
+    svgContent+=`<path d="M${ax1},${ay1} A${R2},${R2} 0 ${lg} 1 ${ax2},${ay2} L${aix2},${aiy2} A${r2},${r2} 0 ${lg} 0 ${aix1},${aiy1} Z"
+      fill="${p.color}" opacity=".9" stroke="rgba(10,9,6,.4)" stroke-width="1"
+      class="seg-path" data-party="${p.abbr}" data-seats="${seats}" style="cursor:pointer;transition:opacity .2s"/>`;
+
+    // label for large segments
+    if(seats/total>0.08){
+      const midA=(startA+endA)/2;
+      const lx=cx+(R2+r2)/2*Math.cos(midA), ly=cy+(R2+r2)/2*Math.sin(midA);
+      svgContent+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
+        font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#fff" opacity=".9">${seats}</text>`;
+    }
+    angle+=sweep+gap;
+  });
+
+  // majority line — at 138/275 of the full circle (absolute seat threshold)
+  const TOTAL_SEATS=275;
+  const majFrac=MAJ/TOTAL_SEATS;
+  const majA=-Math.PI/2+majFrac*Math.PI*2;
+  const mx1=cx+(r-10)*Math.cos(majA), my1=cy+(r-10)*Math.sin(majA);
+  const mx2=cx+(R+16)*Math.cos(majA), my2=cy+(R+16)*Math.sin(majA);
+  svgContent+=`<line x1="${mx1}" y1="${my1}" x2="${mx2}" y2="${my2}" stroke="#d4a843" stroke-width="2.5" stroke-dasharray="6,3" opacity=".95"/>`;
+  // label positioned off the end of the line
+  const lbx=cx+(R+30)*Math.cos(majA), lby=cy+(R+30)*Math.sin(majA);
+  svgContent+=`<text x="${lbx}" y="${lby}" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#d4a843" font-weight="600">138</text>`;
+
+  // center hole — dark fill
+  svgContent+=`<circle cx="${cx}" cy="${cy}" r="${r-3}" fill="#0e0c08"/>`;
+  // inner ring accent
+  svgContent+=`<circle cx="${cx}" cy="${cy}" r="${r-3}" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>`;
+
+  const top=parties[0];
+  const topSeats=top?(top.won+top.lead):0;
+  svgContent+=`
+    <text x="${cx}" y="${cy-16}" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="40" font-weight="700" fill="#f5f0e8">${topSeats}</text>
+    <text x="${cx}" y="${cy+5}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10" font-weight="600" fill="${top?.color||'#fff'}">${top?.symbol||''} ${top?.abbr||''}</text>
+    <text x="${cx}" y="${cy+20}" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#8a7f72" letter-spacing="2">LEADING</text>
+    <text x="${cx}" y="${cy+33}" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="6.5" fill="#555048" letter-spacing="1">OF 275 SEATS</text>
+  `;
+
+  svg.innerHTML=svgContent;
+
+  // tooltip on segments
+  const tip=document.getElementById('parlTip');
+  svg.querySelectorAll('.seg-path').forEach(path=>{
+    path.addEventListener('mouseenter',e=>{
+      const abbr=path.dataset.party, seats=path.dataset.seats;
+      const p=getParty(abbr);
+      tip.innerHTML=`<strong style="color:${p.color}">${p.symbol} ${p.name}</strong><br>${seats} seats leading/won`;
+      tip.style.display='block';
+      path.style.opacity='.7';
+    });
+    path.addEventListener('mousemove',e=>{
+      tip.style.left=(e.clientX+14)+'px';
+      tip.style.top=(e.clientY-10)+'px';
+    });
+    path.addEventListener('mouseleave',()=>{
+      tip.style.display='none';
+      path.style.opacity='.9';
+    });
+  });
+
+  // legend — all parties, with 0-seat ones dimmed
+  const totalAll=PARTIES.reduce((s,p)=>s+p.won+p.lead,0)||1;
+  const maxLeg=Math.max(...PARTIES.map(x=>x.won+x.lead))||1;
+  legend.innerHTML=PARTIES.sort((a,b)=>(b.won+b.lead)-(a.won+a.lead)).map(p=>{
+    const seats=p.won+p.lead;
+    const pct=seats>0?((seats/totalAll)*100).toFixed(1):'0.0';
+    const barW=seats>0?((seats/maxLeg)*100).toFixed(1):'0';
+    const dimmed=seats===0?'opacity:.4;':'';
+    return `<div class="parl-leg-row" style="${dimmed}">
+      <div class="parl-leg-sym" style="background:${p.symBg};color:${p.color}">${p.symbol}</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.22rem">
+          <span class="parl-leg-name">${p.name}</span>
+          <span class="parl-leg-seats" style="color:${seats>0?p.color:'var(--mist)'}">${seats}</span>
+          <span class="parl-leg-pct">${pct}%</span>
+        </div>
+        <div class="parl-leg-bar"><div class="parl-leg-fill" style="width:${barW}%;background:${p.color}"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════
+//  CONSTITUENCY CARDS
+// ════════════════════════════════════════
+function buildCard(c, delay=0){
+  const sorted=[...c.candidates].sort((a,b)=>b.votes-a.votes);
+  const leader=sorted[0];
+  const totalV=sorted.reduce((s,x)=>s+x.votes,0);
+  const maxV=sorted[0]?.votes||1;
+
+  const candsHtml=sorted.map((cand,i)=>{
+    const p=getParty(cand.party);
+    const isLead=i===0;
+    const diff=i===0?(sorted.length>1&&cand.votes>0?cand.votes-sorted[1].votes:null):(cand.votes>0?cand.votes-leader.votes:null);
+    const diffHtml=diff!==null&&diff!==0
+      ?`<span class="cand-margin ${diff>0?'m-ahead':'m-behind'}">${diff>0?'▲ +':'▼ '}${Math.abs(diff).toLocaleString()}</span>`:'';
+    return `<div class="cand-row${isLead?' leader':''}">
+      <span class="cand-rank">${i+1}</span>
+      <div class="cand-sym" style="background:${p.symBg};color:${p.color}">${p.symbol}</div>
+      <div class="cand-info">
+        <div class="cand-name">${cand.name}</div>
+        <div class="cand-party-tag" style="color:${p.color}">${p.abbr}</div>
+      </div>
+      <div class="cand-right">
+        <span class="cand-votes">${cand.votes>0?cand.votes.toLocaleString():'—'}</span>
+        ${diffHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  const barsHtml=totalV>0?`<div class="cand-bars">${sorted.map(cand=>{
+    const p=getParty(cand.party);
+    const w=((cand.votes/maxV)*100).toFixed(1);
+    const pct=((cand.votes/totalV)*100).toFixed(0);
+    return `<div class="cbar-row">
+      <div class="cbar-sym" style="background:${p.symBg};color:${p.color}">${p.symbol}</div>
+      <div class="cbar-bg"><div class="cbar-fill" style="width:${w}%;background:${p.color}"></div></div>
+      <span class="cbar-pct">${pct}%</span>
+    </div>`;
+  }).join('')}</div>`:'';
+
+  const cpCls=c.countPct>60?'cp-done':c.countPct>0?'cp-on':'cp-zero';
+  const stCls=c.declared?'st-declared':c.countPct>0?'st-counting':'st-pending';
+  const stTxt=c.declared?'DECLARED':c.countPct>0?'COUNTING':'PENDING';
+
+  return `<div class="const-card" style="animation-delay:${delay}s">
+    <div class="const-header">
+      <span class="const-num">${c.num}</span>
+      <div style="flex:1;padding:0 .5rem;min-width:0">
+        <div class="const-name">${c.name}</div>
+        <div class="const-dist">${c.district} · ${c.province}</div>
+      </div>
+      <span class="count-pill ${cpCls}">${c.countPct}% counted</span>
+    </div>
+    <div class="cand-list">${candsHtml}</div>
+    ${barsHtml}
+    <div class="const-footer">
+      <span class="const-total">${totalV>0?'Total: '+totalV.toLocaleString():'Awaiting count'}</span>
+      <span class="st-tag ${stCls}">${stTxt}</span>
+    </div>
+  </div>`;
+}
+
+function renderConstGrid(items){
+  const grid=document.getElementById('constGrid');
+  if(!items.length){
+    grid.innerHTML='<div class="empty-state">No constituencies match your search.</div>';
+    return;
+  }
+  grid.innerHTML=items.map((c,i)=>buildCard(c,i*0.04)).join('');
+  document.getElementById('searchCount').textContent=`Showing ${items.length} of ${CONSTITUENCIES.length} constituencies`;
+  setTimeout(attachSpotlights,60);
+}
+
+function doSearch(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  const prov=document.getElementById('provFilter').value;
+  const party=document.getElementById('partyFilter').value;
+  const filtered=CONSTITUENCIES.filter(c=>{
+    if(prov&&c.province!==prov)return false;
+    if(party&&!c.candidates.some(x=>x.party===party))return false;
+    if(q&&!c.name.toLowerCase().includes(q)&&!c.district.toLowerCase().includes(q)&&!c.num.toLowerCase().includes(q)&&!c.candidates.some(x=>x.name.toLowerCase().includes(q)))return false;
+    return true;
+  });
+  renderConstGrid(filtered);
+}
+
+// ════════════════════════════════════════
+//  HOT SEATS
+// ════════════════════════════════════════
+function renderHotSeats(){
+  document.getElementById('hotseatGrid').innerHTML=HOTSEATS.map((hs,i)=>{
+    const sorted=[...hs.cands].sort((a,b)=>b.votes-a.votes);
+    const lead=sorted[0].votes>0&&sorted[1]?sorted[0].votes-sorted[1].votes:null;
+    const candsHtml=sorted.map(cand=>{
+      const p=getParty(cand.party);
+      const isTop=cand===sorted[0];
+      return `<div class="hs-cand">
+        <div class="hs-cand-sym" style="background:${p.symBg};color:${p.color}">${p.symbol}</div>
+        <div class="hs-cand-info">
+          <div class="hs-cand-name" style="color:${isTop?'var(--gold2)':'var(--ink)'}">${cand.name}</div>
+          <div class="hs-cand-party" style="color:${p.color}">${p.abbr} · ${p.name}</div>
+        </div>
+        <span class="hs-votes" style="color:${isTop?'var(--gold2)':'var(--mist)'}">${cand.votes>0?cand.votes.toLocaleString():'—'}</span>
+        ${isTop&&lead?`<span class="hs-badge">▲ +${lead.toLocaleString()}</span>`:''}
+      </div>`;
+    }).join('');
+    return `<div class="hs-card" style="animation-delay:${i*.07}s">
+      <div class="hs-hdr">
+        <span class="hs-title">${hs.const} · ${hs.district}</span>
+        <span class="hs-tag">${hs.tag}</span>
+      </div>
+      <div class="hs-body">${candsHtml}</div>
+      <div class="hs-note">${hs.note}</div>
+    </div>`;
+  }).join('');
+  setTimeout(attachSpotlights,60);
+}
+
+// ════════════════════════════════════════
+//  PROVINCES
+// ════════════════════════════════════════
+function renderProvinces(){
+  const colorMap={RSP:'#e85d04',NC:'#1a6fbd',UML:'#dc2626',NCP:'#991b1b',RPP:'#166534',JSP:'#b45309',UNP:'#0891b2',IND:'#6b7280',other:'#374151'};
+  document.getElementById('provGrid').innerHTML=PROVINCES.map(prov=>{
+    const entries=Object.entries(prov.leading).sort((a,b)=>b[1]-a[1]);
+    const total=entries.reduce((s,[,v])=>s+v,0);
+    const topPartyId=entries[0][0];
+    const topColor=colorMap[topPartyId]||'#6b7280';
+    const topPart=getParty(topPartyId);
+    const barSegs=entries.map(([pid,seats])=>`<div class="prov-seg" style="width:${(seats/prov.seats*100).toFixed(1)}%;background:${colorMap[pid]||'#6b7280'}"></div>`).join('');
+    const legend=entries.map(([pid,seats])=>{
+      const pp=getParty(pid);
+      return `<div class="prov-leg-item"><span class="prov-leg-dot" style="background:${colorMap[pid]||'#6b7280'}"></span>${pp.symbol} ${pid}: ${seats}</div>`;
+    }).join('');
+    return `<div class="prov-card">
+      <div class="prov-name">${prov.name} Province</div>
+      <div class="prov-meta">${prov.seats} seats · ${prov.districts}</div>
+      <div class="prov-lead-lbl" style="color:${topColor}">${topPart.symbol} Leading: ${topPartyId} (${entries[0][1]} seats)</div>
+      <div class="prov-multibar">${barSegs}</div>
+      <div class="prov-legend">${legend}</div>
+    </div>`;
+  }).join('');
+  setTimeout(attachSpotlights,60);
+}
+
+// ════════════════════════════════════════
+//  NEWS
+// ════════════════════════════════════════
+function renderNews(){
+  const items=newsFilter==='all'?NEWS:NEWS.filter(n=>n.tag===newsFilter);
+  document.getElementById('newsList').innerHTML=items.map((n,i)=>{
+    const dots=Array(5).fill(0).map((_,di)=>`<span class="cd${di<n.conf?' on':''}"></span>`).join('');
+    const vc=n.vt==='v'?'vb-v':n.vt==='p'?'vb-p':'vb-u';
+    const vt=n.vt==='v'?'VERIFIED':n.vt==='p'?'PARTIAL':'UNVERIFIED';
+    return `<div class="news-card" style="animation-delay:${i*.04}s">
+      <div class="nc-meta"><span class="nc-source">${n.src}</span><span class="nc-time">${n.time}</span></div>
+      <div class="nc-hl">${n.hl}</div>
+      <div class="nc-sum">${n.sum}</div>
+      <div class="nc-footer"><span class="v-badge ${vc}">${vt}</span><div class="conf-dots">${dots}</div></div>
+    </div>`;
+  }).join('');
+  setTimeout(attachSpotlights,60);
+}
+
+function setNF(f,btn){
+  newsFilter=f;
+  document.querySelectorAll('.nf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderNews();
+}
+
+function renderSources(){
+  document.getElementById('srcList').innerHTML=SOURCES.map(s=>`
+    <div class="src-item">
+      <div class="src-dot src-${s.status}"></div>
+      <span class="src-name">${s.name}</span>
+      <span class="src-upd">${s.upd}</span>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+//  AI TYPING
+// ════════════════════════════════════════
+function typeAI(){
+  const el=document.getElementById('aiOut');
+  const text=AI_TEXTS[aiIdx];
+  aiChar++;
+  if(aiChar<=text.length){
+    el.innerHTML=text.substring(0,aiChar)+'<span class="cursor"></span>';
+    setTimeout(typeAI,aiChar<text.length*.3?10:18);
+  } else {
+    document.getElementById('aiThink').style.opacity='.3';
+    setTimeout(()=>{
+      aiIdx=(aiIdx+1)%AI_TEXTS.length; aiChar=0;
+      document.getElementById('aiThink').style.opacity='1';
+      el.innerHTML='<span class="cursor"></span>';
+      setTimeout(typeAI,500);
+    },13000);
+  }
+}
+
+// ════════════════════════════════════════
+//  MOUSE SPOTLIGHT
+// ════════════════════════════════════════
+function attachSpotlights(){
+  document.querySelectorAll('.const-card,.news-card,.hs-card,.prov-card,.stat-box').forEach(el=>{
+    // avoid double-binding
+    if(el._spotlit) return;
+    el._spotlit=true;
+    el.addEventListener('mousemove',e=>{
+      const rect=el.getBoundingClientRect();
+      el.style.setProperty('--mx',(e.clientX-rect.left)+'px');
+      el.style.setProperty('--my',(e.clientY-rect.top)+'px');
+    });
+    el.addEventListener('mouseleave',()=>{
+      el.style.setProperty('--mx','-9999px');
+      el.style.setProperty('--my','-9999px');
+    });
+  });
+}
+
+// Ripple
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.const-card,.news-card,.hs-card,.prov-card,.nav-tab,.stat-box');
+  if(!t)return;
+  const r=t.getBoundingClientRect();
+  const rip=document.createElement('span');
+  rip.className='ripple';
+  const sz=Math.max(r.width,r.height)*.5;
+  rip.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX-r.left-sz/2}px;top:${e.clientY-r.top-sz/2}px`;
+  t.appendChild(rip);
+  setTimeout(()=>rip.remove(),700);
+});
+
+// ════════════════════════════════════════
+//  BOOT
+// ════════════════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
+  renderTicker();
+  renderPartyTable();
+  renderParliament();
+  renderConstGrid(CONSTITUENCIES);
+  renderHotSeats();
+  renderProvinces();
+  renderNews();
+  renderSources();
+  updateClock();
+  setInterval(updateClock,1000);
+  attachSpotlights();
+
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('gone');
+    setTimeout(typeAI,700);
+  },2800);
+});
+</script>
+</body>
+</html>
