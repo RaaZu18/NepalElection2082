@@ -3,677 +3,718 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nepal Election 2082 · Live Results</title>
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<title>Nepal Election 2082 · Results</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════════
+   RESET & TOKENS
+══════════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#f5f3ee;--white:#fff;--ink:#1a1a1a;--ink2:#444;
-  --muted:#888;--border:#e0ddd6;--red:#c0392b;--redbg:#fdf2f0;
-  --gold:#b8860b;--green:#1a7a4a;--blue:#1a4a8a;
+  --ink:    #0f0d0b;
+  --ink2:   #3a3530;
+  --ink3:   #7a7068;
+  --parch:  #f7f4ee;
+  --parch2: #f0ece3;
+  --parch3: #e8e2d8;
+  --white:  #fff;
+  --red:    #b01c1c;
+  --red2:   #8a1414;
+  --redbg:  #fdf1f1;
+  --gold:   #b07d12;
+  --goldbg: #fdf8ec;
+  --green:  #156b40;
+  --blue:   #1a3e7a;
+  --border: rgba(0,0,0,.1);
+
+  /* party colours */
+  --rsp:#d44b0a;
+  --nc:#1a3e7a;
+  --uml:#b01c1c;
+  --ncp:#6b1414;
+  --ssp:#5b1e8a;
+  --rpp:#156b40;
+  --ind:#5a5550;
 }
+
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Noto Sans',sans-serif;font-size:15px;line-height:1.5}
-
-/* ── HEADER ── */
-.hdr{background:var(--red)}
-.hdr-top{display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;max-width:1060px;margin:0 auto}
-.flag{font-size:2rem;flex-shrink:0}
-.hdr-txt{flex:1}
-.t-nep{font-family:'Noto Sans Devanagari',sans-serif;font-size:.72rem;color:rgba(255,255,255,.7);display:block}
-.t-eng{font-family:'Teko',sans-serif;font-size:clamp(1.2rem,3vw,1.85rem);font-weight:600;color:#fff;display:block;letter-spacing:.04em;line-height:1.1}
-.t-sub{font-size:.68rem;color:rgba(255,255,255,.6);display:block;margin-top:.1rem}
-.hdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:.28rem;flex-shrink:0}
-.live-badge{display:flex;align-items:center;gap:.3rem;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:.2rem .55rem;font-family:'Teko',sans-serif;font-size:.76rem;letter-spacing:.14em;color:#fff}
-.dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:blink 1.4s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.hdr-clock{font-size:.58rem;color:rgba(255,255,255,.6);text-align:right;font-variant-numeric:tabular-nums}
-.hdr-meta{background:rgba(0,0,0,.2);border-top:1px solid rgba(0,0,0,.15);padding:.35rem 1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap;max-width:1060px;margin:0 auto;font-size:.67rem;color:rgba(255,255,255,.7)}
-.hdr-meta strong{color:#fff}
-
-/* ── FETCH BAR ── */
-.fetch-bar{background:var(--white);border-bottom:1px solid var(--border)}
-.fetch-inner{max-width:1060px;margin:0 auto;padding:.3rem 1.5rem;display:flex;align-items:center;gap:.6rem;font-size:.62rem;color:var(--muted)}
-.spin{width:10px;height:10px;border:2px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;display:none}
-.spin.on{display:block}
-@keyframes spin{to{transform:rotate(360deg)}}
-.fetch-ok{color:var(--green)}
-.fetch-err{color:var(--red)}
-.src-links{margin-left:auto;display:flex;gap:.6rem}
-.src-links a{color:var(--blue);text-decoration:none;font-size:.6rem}
-.src-links a:hover{text-decoration:underline}
-
-/* ── MAIN ── */
-main{max-width:1060px;margin:0 auto;padding:1.5rem}
-.sec{font-family:'Teko',sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;border-left:3px solid var(--red);padding-left:.6rem;margin-bottom:.9rem;margin-top:1.6rem}
-.sec:first-child{margin-top:0}
-
-/* ── SUMMARY ── */
-.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1.6rem}
-.sum-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.85rem .7rem;text-align:center}
-.sum-n{font-family:'Teko',sans-serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;display:block;line-height:1}
-.sum-l{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.18rem;display:block}
-
-/* ── MAJORITY BAR ── */
-.maj-track{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;margin-bottom:1.6rem}
-.maj-labels{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-bottom:.4rem}
-.maj-labels strong{color:var(--ink);font-size:.7rem}
-.maj-outer{height:14px;background:var(--border);border-radius:7px;overflow:hidden;position:relative}
-.maj-fill{height:100%;border-radius:7px;transition:width 1s ease;background:var(--red)}
-.maj-line{position:absolute;top:0;height:100%;width:2px;background:var(--gold)}
-.maj-note{font-size:.6rem;color:var(--muted);margin-top:.35rem;text-align:center}
-
-/* ── PARTY TABLE ── */
-.tbl-wrap{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:0;overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:460px}
-thead{background:var(--ink)}
-th{font-family:'Teko',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);padding:.52rem .85rem;text-align:left}
-th.r{text-align:right}
-td{padding:.55rem .85rem;border-bottom:1px solid var(--border);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:#faf9f6}
-.p-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.p-name{font-weight:600;font-size:.85rem}
-.p-id{font-size:.58rem;color:var(--muted)}
-.t-won{font-family:'Teko',sans-serif;font-size:1.3rem;font-weight:600;text-align:right}
-.t-lead{font-family:'Teko',sans-serif;font-size:.9rem;color:var(--gold);text-align:right}
-.t-tot{text-align:right}
-.t-tot-n{font-family:'Teko',sans-serif;font-size:1rem;font-weight:600}
-.bar-bg{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:.16rem}
-.bar-f{height:100%;border-radius:2px;transition:width .9s ease}
-.maj-sep td{background:#fffbeb!important;border-top:1px dashed #d4a800!important;border-bottom:1px dashed #d4a800!important;padding:.22rem .85rem!important;font-size:.58rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:center}
-
-/* ── PROVINCE ── */
-.prov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem;margin-bottom:0}
-.prov-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.85rem}
-.prov-name{font-family:'Teko',sans-serif;font-size:.9rem;font-weight:600;letter-spacing:.05em;margin-bottom:.08rem}
-.prov-meta{font-size:.58rem;color:var(--muted);margin-bottom:.5rem}
-.prov-lead{font-size:.76rem;font-weight:600;margin-bottom:.32rem}
-.prov-bar{height:6px;border-radius:3px;overflow:hidden;display:flex;border:1px solid var(--border);margin-bottom:.32rem}
-.prov-seg{height:100%}
-.prov-leg{display:flex;flex-wrap:wrap;gap:.22rem}
-.leg-i{display:flex;align-items:center;gap:.16rem;font-size:.58rem;color:var(--ink2)}
-.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
-/* ── CONSTITUENCY ── */
-.const-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:.7rem;margin-bottom:0}
-.cc{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.cc-head{background:var(--ink);padding:.42rem .78rem;display:flex;align-items:center;justify-content:space-between;gap:.4rem}
-.cc-name{font-family:'Teko',sans-serif;font-size:.9rem;font-weight:500;color:#fff;letter-spacing:.03em;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cc-tag{font-size:.48rem;padding:.06rem .28rem;border-radius:3px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
-.tag-d{background:#dcfce7;color:#15803d}
-.tag-c{background:#fef3c7;color:#b45309}
-.cand-list{padding:.22rem 0}
-.cr{display:flex;align-items:center;gap:.35rem;padding:.24rem .78rem}
-.cr.w{background:var(--redbg);border-left:3px solid var(--red)}
-.cr-rank{font-size:.5rem;color:var(--muted);width:.78rem;text-align:center;flex-shrink:0}
-.cr-n{flex:1;font-size:.75rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cr.w .cr-n{font-weight:600;color:var(--red)}
-.cr-p{font-size:.48rem;font-weight:700;padding:.03rem .24rem;border-radius:3px;flex-shrink:0}
-.cr-v{font-family:'Teko',sans-serif;font-size:.88rem;min-width:2.9rem;text-align:right;flex-shrink:0}
-.cr.w .cr-v{color:var(--red);font-weight:600}
-.cc-foot{background:#faf9f6;border-top:1px solid var(--border);padding:.24rem .78rem;font-size:.55rem;color:var(--muted);display:flex;justify-content:space-between}
-
-/* ── SKELETON ── */
-.skel{background:linear-gradient(90deg,#ebe9e4 25%,#f5f3ee 50%,#ebe9e4 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px;height:1rem}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--border);padding:1.3rem;text-align:center;font-size:.65rem;color:var(--muted);line-height:1.85}
-footer strong{color:var(--ink)}
-footer a{color:var(--blue)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:640px){
-  .sum-grid{grid-template-columns:repeat(2,1fr)}
-  .const-grid{grid-template-columns:1fr}
-  .prov-grid{grid-template-columns:repeat(2,1fr)}
-  .hdr-right{display:none}
-  main{padding:1rem}
+body{
+  background:var(--parch);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  line-height:1.6;
+  min-height:100vh;
 }
-@media(max-width:400px){.prov-grid{grid-template-columns:1fr}}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.5;
+}
+
+/* ══════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════ */
+.hdr{
+  background:var(--red);
+  position:relative;
+  overflow:hidden;
+}
+.hdr::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#fff2,#fff6,#fff2);
+}
+/* diagonal stripe texture */
+.hdr::before{
+  content:'';
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    -55deg,
+    transparent,transparent 12px,
+    rgba(0,0,0,.04) 12px,rgba(0,0,0,.04) 13px
+  );
+  pointer-events:none;
+}
+.hdr-inner{
+  position:relative;
+  max-width:1080px;margin:0 auto;
+  padding:1.6rem 2rem 1.2rem;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:1rem;
+  align-items:center;
+}
+.hdr-flag-row{display:flex;align-items:center;gap:1rem}
+.flag{font-size:2.4rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.hdr-titles{}
+.t-nep{
+  font-family:'Noto Sans Devanagari',sans-serif;
+  font-size:.7rem;font-weight:400;
+  color:rgba(255,255,255,.6);
+  letter-spacing:.06em;display:block;margin-bottom:.15rem;
+}
+.t-eng{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.3rem,3.5vw,2.1rem);
+  font-weight:900;color:#fff;
+  display:block;line-height:1.05;
+  letter-spacing:-.01em;
+  text-shadow:0 2px 12px rgba(0,0,0,.25);
+}
+.t-sub{
+  font-size:.65rem;color:rgba(255,255,255,.55);
+  letter-spacing:.08em;display:block;margin-top:.25rem;
+  font-weight:300;text-transform:uppercase;
+}
+.hdr-right{text-align:right}
+.hdr-clock{
+  font-family:'DM Mono',monospace;
+  font-size:.82rem;color:#fff;
+  line-height:1.7;
+  text-shadow:0 1px 4px rgba(0,0,0,.3);
+}
+.hdr-clock .date-line{font-size:.65rem;color:rgba(255,255,255,.6);display:block}
+
+.hdr-strip{
+  position:relative;
+  background:rgba(0,0,0,.22);
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:.38rem 2rem;
+  max-width:100%;
+}
+.hdr-strip-inner{
+  max-width:1080px;margin:0 auto;
+  display:flex;gap:1.6rem;flex-wrap:wrap;
+  font-size:.62rem;color:rgba(255,255,255,.6);
+  font-weight:300;letter-spacing:.04em;
+}
+.hdr-strip-inner strong{color:#fff;font-weight:500}
+.hdr-strip-inner span{display:flex;align-items:center;gap:.3rem}
+
+/* ══════════════════════════════════════════
+   TICKER
+══════════════════════════════════════════ */
+.ticker{
+  background:var(--ink);
+  height:34px;display:flex;align-items:center;overflow:hidden;
+  border-bottom:2px solid var(--red);
+}
+.ticker-badge{
+  background:var(--red);color:#fff;
+  font-family:'DM Mono',monospace;font-size:.58rem;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:0 1rem;height:100%;display:flex;align-items:center;
+  flex-shrink:0;gap:.4rem;border-right:1px solid rgba(255,255,255,.15);
+}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 1.4s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+.ticker-scroll{flex:1;overflow:hidden;white-space:nowrap}
+.ticker-track{
+  display:inline-flex;align-items:center;gap:0;
+  animation:ticker 50s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tick-item{
+  color:rgba(255,255,255,.75);font-size:.65rem;
+  padding:0 2.5rem;display:inline-flex;align-items:center;gap:.45rem;
+}
+.tick-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;opacity:.9}
+.tick-sep{color:rgba(255,255,255,.2);padding:0 .5rem}
+
+/* ══════════════════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════════════════ */
+main{
+  max-width:1080px;margin:0 auto;
+  padding:2rem 2rem 3rem;
+  display:flex;flex-direction:column;gap:2.2rem;
+  position:relative;z-index:1;
+}
+
+.section-label{
+  display:flex;align-items:center;gap:.8rem;
+  margin-bottom:1rem;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--parch3)}
+.section-label span{
+  font-family:'DM Mono',monospace;
+  font-size:.6rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink3);white-space:nowrap;
+}
+.section-label .label-num{
+  font-family:'Playfair Display',serif;
+  font-size:.75rem;font-weight:700;color:var(--red);
+  margin-right:-.2rem;
+}
+
+/* ══════════════════════════════════════════
+   HERO ROW — big stat + majority bar
+══════════════════════════════════════════ */
+.hero-row{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1.2rem;
+  align-items:stretch;
+}
+.hero-stat{
+  background:var(--red);
+  border-radius:12px;
+  padding:1.8rem 2rem;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  min-width:160px;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(176,28,28,.3);
+}
+.hero-stat::before{
+  content:'';position:absolute;
+  top:-40%;right:-20%;
+  width:200px;height:200px;
+  background:rgba(255,255,255,.06);
+  border-radius:50%;
+}
+.hero-stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,6vw,4.5rem);
+  font-weight:900;color:#fff;line-height:1;
+  text-shadow:0 4px 16px rgba(0,0,0,.25);
+  position:relative;
+}
+.hero-stat-abbr{
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;letter-spacing:.18em;
+  color:rgba(255,255,255,.7);
+  text-transform:uppercase;margin-top:.3rem;position:relative;
+}
+.hero-stat-sub{
+  font-size:.6rem;color:rgba(255,255,255,.55);
+  margin-top:.1rem;position:relative;font-weight:300;
+}
+
+.hero-right{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  gap:.8rem;
+}
+.stat-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.stat-card{
+  background:var(--white);
+  border:1px solid var(--parch3);
+  border-radius:10px;
+  padding:.85rem 1rem;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:10px 10px 0 0;
+}
+.stat-card.c-won::before{background:var(--red)}
+.stat-card.c-lead::before{background:var(--gold)}
+.stat-card.c-maj::before{background:var(--green)}
+.stat-card-n{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,2.5vw,2.2rem);
+  font-weight:700;line-height:1;
+}
+.stat-card-l{font-size:.57rem;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem;font-weight:500}
+
+/* ── MAJORITY PROGRESS ── */
+.maj-block{
+  background:var(--white);border:1px solid var(--parch3);
+  border-radius:10px;padding:1rem 1.2rem;
+  display:flex;flex-direction:column;gap:.55rem;
+}
+.maj-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.4rem}
+.maj-party-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.05rem;font-weight:700;
+}
+.maj-fraction{
+  font-family:'DM Mono',monospace;font-size:.68rem;
+  color:var(--ink3);
+}
+.maj-track{
+  height:20px;background:var(--parch2);
+  border-radius:10px;overflow:hidden;
+  position:relative;border:1px solid var(--parch3);
+}
+.maj-fill{
+  height:100%;border-radius:10px;
+  background:linear-gradient(90deg,var(--red2),var(--red));
+  transition:width 1.4s cubic-bezier(.25,.46,.45,.94);
+  position:relative;
+}
+.maj-fill::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 60%);
+  border-radius:10px;
+}
+.maj-marker{
+  position:absolute;top:-3px;bottom:-3px;
+  width:2px;background:var(--gold);
+  left:50.18%;
+  box-shadow:0 0 6px var(--gold);
+}
+.maj-marker-label{
+  position:absolute;top:-18px;left:50%;
+  transform:translateX(-50%);
+  font-family:'DM Mono',monospace;font-size:.52rem;
+  color:var(--gold);white-space:nowrap;font-weight:500;
+}
+.maj-footer{display:flex;justify-content:space-between;font-size:.6rem;color:var(--ink3)}
+.maj-footer strong{color:var(--gold)}
+
+/* ══════════════════════════════════════════
+   PARTY TABLE
+══════════════════════════════════════════ */
+.tbl-container{
+  background:var(--white);
+  border:1px solid var(--parch3);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.05);
+  overflow-x:auto;
+}
+table{width:100%;border-collapse:collapse;min-width:480px}
+thead tr{background:var(--ink)}
+th{
+  font-family:'DM Mono',monospace;
+  font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  padding:.65rem 1.1rem;text-align:left;font-weight:400;
+}
+th.r{text-align:right}
+td{padding:.7rem 1.1rem;border-bottom:1px solid var(--parch2);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .12s}
+tbody tr:hover td{background:var(--parch2)}
+
+.party-cell{display:flex;align-items:center;gap:.7rem}
+.party-color-bar{width:4px;height:36px;border-radius:2px;flex-shrink:0}
+.party-name-main{font-weight:600;font-size:.85rem;line-height:1.2}
+.party-abbr-tag{
+  display:inline-block;
+  font-family:'DM Mono',monospace;
+  font-size:.52rem;letter-spacing:.08em;
+  padding:.1rem .35rem;border-radius:3px;
+  margin-top:.18rem;font-weight:500;
+}
+.won-cell{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:700;
+  text-align:right;line-height:1;
+}
+.lead-cell{
+  font-family:'DM Mono',monospace;
+  font-size:.9rem;text-align:right;line-height:1;
+}
+.lead-cell.zero{color:var(--ink3)}
+.total-cell{text-align:right}
+.total-n{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:700;line-height:1;
+}
+.total-bar{height:4px;background:var(--parch2);border-radius:2px;overflow:hidden;margin-top:.25rem;min-width:60px}
+.total-bar-fill{height:100%;border-radius:2px;transition:width 1.1s ease .3s}
+
+.sep-row td{
+  background:var(--goldbg)!important;
+  border-top:1px dashed rgba(176,125,18,.4)!important;
+  border-bottom:1px dashed rgba(176,125,18,.4)!important;
+  padding:.3rem 1.1rem!important;
+  font-family:'DM Mono',monospace;
+  font-size:.55rem;color:var(--gold);
+  font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;text-align:center;
+}
+
+/* rank badge */
+.rank{
+  font-family:'DM Mono',monospace;
+  font-size:.55rem;color:var(--ink3);
+  text-align:center;width:22px;
+}
+.rank.r1{color:var(--red);font-weight:600}
+.rank.r2{color:var(--ink2);font-weight:500}
+.rank.r3{color:var(--ink3)}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.page-footer{
+  border-top:1px solid var(--parch3);
+  padding:1.4rem 2rem;
+  text-align:center;
+  font-size:.62rem;color:var(--ink3);line-height:2;
+  background:var(--parch2);
+}
+.page-footer a{color:var(--blue);text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+.page-footer strong{color:var(--ink2)}
+
+/* ══════════════════════════════════════════
+   ANIMATIONS — staggered entry
+══════════════════════════════════════════ */
+.fade-up{
+  opacity:0;transform:translateY(18px);
+  animation:fadeUp .55s ease forwards;
+}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.d1{animation-delay:.05s}
+.d2{animation-delay:.15s}
+.d3{animation-delay:.25s}
+.d4{animation-delay:.35s}
+.d5{animation-delay:.45s}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:700px){
+  .hero-row{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .stat-cards-row{grid-template-columns:repeat(3,1fr)}
+  .hdr-right{display:none}
+  main{padding:1.2rem 1rem 2rem}
+  .hdr-inner{padding:1.2rem 1rem .9rem}
+  .hdr-strip{padding:.32rem 1rem}
+}
+@media(max-width:440px){
+  .stat-cards-row{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ═══════════ HEADER ═══════════ -->
 <header class="hdr">
-  <div class="hdr-top">
-    <div class="flag">🇳🇵</div>
-    <div class="hdr-txt">
-      <span class="t-nep">नेपाल प्रतिनिधिसभा निर्वाचन परिणाम २०८२</span>
-      <span class="t-eng">Nepal General Election 2082 — Live Results</span>
-      <span class="t-sub">House of Representatives · Falgun 21, 2082 BS · March 5, 2026</span>
+  <div class="hdr-inner">
+    <div class="hdr-flag-row">
+      <div class="flag">🇳🇵</div>
+      <div class="hdr-titles">
+        <span class="t-nep">नेपाल प्रतिनिधिसभा निर्वाचन परिणाम २०८२</span>
+        <span class="t-eng">Nepal General Election 2082</span>
+        <span class="t-sub">House of Representatives &nbsp;·&nbsp; Falgun 21, 2082 BS &nbsp;·&nbsp; March 5, 2026</span>
+      </div>
     </div>
     <div class="hdr-right">
-      <div class="live-badge"><span class="dot"></span>LIVE</div>
-      <div class="hdr-clock" id="clock">—</div>
+      <div class="hdr-clock">
+        <span class="date-line" id="clock-date">—</span>
+        <span id="clock-time" style="font-size:.95rem;font-weight:500">—</span>
+        <span class="date-line">Nepal Time (NPT)</span>
+      </div>
     </div>
   </div>
-  <div class="hdr-meta">
-    <span>Date: <strong>March 5, 2026</strong></span>
-    <span>FPTP: <strong>165 seats</strong></span>
-    <span>PR: <strong>110 seats</strong></span>
-    <span>Majority: <strong>138 seats</strong></span>
-    <span>Turnout: <strong>~60%</strong></span>
-    <span>Next refresh: <strong id="next-tick">3:00</strong></span>
+  <div class="hdr-strip">
+    <div class="hdr-strip-inner">
+      <span>FPTP seats: <strong>165</strong></span>
+      <span>PR seats: <strong>110</strong></span>
+      <span>Total: <strong>275</strong></span>
+      <span>Majority: <strong>138</strong></span>
+      <span>Election date: <strong>Mar 5, 2026</strong></span>
+      <span>Data as of: <strong>Mar 8, 2026</strong></span>
+    </div>
   </div>
 </header>
 
-<!-- FETCH STATUS BAR -->
-<div class="fetch-bar">
-  <div class="fetch-inner">
-    <div class="spin" id="spin"></div>
-    <span id="fetch-msg">Loading live results…</span>
-    <div class="src-links">
-      <a href="https://result.election.gov.np" target="_blank" rel="noopener">Election Commission Nepal ↗</a>
-      <a href="https://election.ekantipur.com" target="_blank" rel="noopener">Ekantipur ↗</a>
-      <a href="https://nepalvotes.live" target="_blank" rel="noopener">NepalVotes ↗</a>
+<!-- ═══════════ TICKER ═══════════ -->
+<div class="ticker">
+  <div class="ticker-badge">
+    <span class="pulse-dot"></span>
+    Results
+  </div>
+  <div class="ticker-scroll">
+    <div class="ticker-track" id="ticker-track">
+      <!-- duplicated for seamless loop -->
     </div>
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- ═══════════ MAIN ═══════════ -->
 <main>
 
-  <!-- SUMMARY -->
-  <div class="sec">At a Glance</div>
-  <div class="sum-grid">
-    <div class="sum-card"><span class="sum-n" style="color:var(--red)"  id="s-won">—</span><span class="sum-l">Seats Won</span></div>
-    <div class="sum-card"><span class="sum-n" style="color:var(--gold)" id="s-lead">—</span><span class="sum-l">Seats Leading</span></div>
-    <div class="sum-card"><span class="sum-n" style="color:var(--blue)" id="s-total">—</span><span class="sum-l">Won + Leading</span></div>
-    <div class="sum-card"><span class="sum-n" style="color:var(--green)">138</span><span class="sum-l">Needed for Majority</span></div>
-  </div>
-
-  <!-- MAJORITY BAR -->
-  <div class="maj-track">
-    <div class="maj-labels">
-      <span>Seats declared: <strong id="m-dec">—</strong> / 165 FPTP</span>
-      <span>Majority line: <strong>138 / 275</strong></span>
+  <!-- HERO -->
+  <section class="fade-up d1">
+    <div class="section-label">
+      <span class="label-num">01</span>
+      <span>At a Glance</span>
     </div>
-    <div class="maj-outer">
-      <div class="maj-fill" id="maj-fill" style="width:0%"></div>
-      <div class="maj-line" style="left:50%"></div><!-- 138/275 = 50.2% -->
+    <div class="hero-row">
+
+      <div class="hero-stat">
+        <div class="hero-stat-n" id="hero-n">—</div>
+        <div class="hero-stat-abbr" id="hero-abbr">—</div>
+        <div class="hero-stat-sub">Won + Leading seats</div>
+      </div>
+
+      <div class="hero-right">
+        <div class="stat-cards-row">
+          <div class="stat-card c-won">
+            <div class="stat-card-n" id="s-won" style="color:var(--red)">—</div>
+            <div class="stat-card-l">Seats Won</div>
+          </div>
+          <div class="stat-card c-lead">
+            <div class="stat-card-n" id="s-lead" style="color:var(--gold)">—</div>
+            <div class="stat-card-l">Seats Leading</div>
+          </div>
+          <div class="stat-card c-maj">
+            <div class="stat-card-n" style="color:var(--green)">138</div>
+            <div class="stat-card-l">Majority Needed</div>
+          </div>
+        </div>
+
+        <div class="maj-block">
+          <div class="maj-header">
+            <div class="maj-party-name" id="maj-pname" style="color:var(--red)">—</div>
+            <div class="maj-fraction">Majority threshold: 138 / 275 seats</div>
+          </div>
+          <div class="maj-track">
+            <div class="maj-fill" id="maj-fill" style="width:0%"></div>
+            <div class="maj-marker">
+              <span class="maj-marker-label">138</span>
+            </div>
+          </div>
+          <div class="maj-footer">
+            <span>0</span>
+            <span id="maj-note">—</span>
+            <span>275</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="maj-note" id="maj-note">Loading…</div>
-  </div>
+  </section>
 
-  <!-- PARTY TABLE -->
-  <div class="sec">Party Standings — FPTP</div>
-  <div class="tbl-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:26px">#</th>
-          <th>Party</th>
-          <th class="r">Won</th>
-          <th class="r">Leading</th>
-          <th class="r">Total</th>
-        </tr>
-      </thead>
-      <tbody id="ptbody">
-        <tr><td colspan="5" style="padding:2rem;text-align:center">
-          <div class="skel" style="width:60%;margin:0 auto"></div>
-        </td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- PROVINCES -->
-  <div class="sec">Province-wise</div>
-  <div class="prov-grid" id="prov-grid">
-    <div class="skel" style="height:110px"></div>
-    <div class="skel" style="height:110px"></div>
-    <div class="skel" style="height:110px"></div>
-    <div class="skel" style="height:110px"></div>
-  </div>
-
-  <!-- KEY CONSTITUENCIES -->
-  <div class="sec">Key Constituency Results</div>
-  <div class="const-grid" id="const-grid">
-    <div class="skel" style="height:140px"></div>
-    <div class="skel" style="height:140px"></div>
-    <div class="skel" style="height:140px"></div>
-  </div>
+  <!-- TABLE -->
+  <section class="fade-up d3">
+    <div class="section-label">
+      <span class="label-num">02</span>
+      <span>Party Standings — FPTP Count</span>
+    </div>
+    <div class="tbl-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:28px">#</th>
+            <th>Party</th>
+            <th class="r">Won</th>
+            <th class="r">Leading</th>
+            <th class="r">Total</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
 
 </main>
 
-<footer>
-  <strong>Nepal Election 2082</strong> · प्रतिनिधिसभा निर्वाचन · House of Representatives<br>
-  Live data from <a href="https://result.election.gov.np" target="_blank" rel="noopener">Election Commission Nepal</a>
-  via <a href="https://election.ekantipur.com" target="_blank" rel="noopener">Ekantipur</a> ·
-  Auto-refreshes every 3 minutes<br>
-  275 total seats · 165 FPTP · 110 PR · Majority: 138 seats
+<footer class="page-footer fade-up d5">
+  <strong>Nepal General Election 2082</strong> &nbsp;·&nbsp; प्रतिनिधिसभा निर्वाचन<br>
+  Data from <a href="https://election.nepsebajar.com/en" target="_blank">NepseBajar</a>
+  &amp; <a href="https://result.election.gov.np" target="_blank">Election Commission Nepal</a>
+  &nbsp;·&nbsp; 275 total seats &nbsp;·&nbsp; 165 FPTP &nbsp;·&nbsp; 110 PR &nbsp;·&nbsp; Majority: 138
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════
-//  PARTY METADATA  (colours, full names — never changes)
-// ═══════════════════════════════════════════════════════════════════════
-const PM = {
-  'Rastriya Swatantra Party':         {id:'RSP', color:'#e85d04'},
-  'Nepali Congress':                  {id:'NC',  color:'#1a4a8a'},
-  'CPN-UML':                          {id:'UML', color:'#c0392b'},
-  'Nepali Communist Party':           {id:'NCP', color:'#7f1d1d'},
-  'Rastriya Prajatantra Party':       {id:'RPP', color:'#1a7a4a'},
-  'Janata Samajbadi Party':           {id:'JSP', color:'#92400e'},
-  'Shram Sanskriti Party':            {id:'SSP', color:'#6b21a8'},
-  'Ujyaalo Nepal Party':              {id:'UNP', color:'#0e7490'},
-  'Independent':                      {id:'IND', color:'#6b7280'},
-};
-
-function pmeta(name) {
-  // exact match
-  if (PM[name]) return PM[name];
-  // partial
-  const n = (name||'').toLowerCase();
-  for (const [k,v] of Object.entries(PM)) {
-    if (n.includes(k.toLowerCase()) || k.toLowerCase().includes(n)) return v;
-  }
-  // hash colour for unknowns
-  let h = 0;
-  for (let i=0;i<n.length;i++) h = ((h<<5)-h)+n.charCodeAt(i)|0;
-  return { id: (name||'?').slice(0,6).toUpperCase(), color:`hsl(${Math.abs(h)%360},45%,40%)` };
-}
-
-// ═══════════════════════════════════════════════════════════════════════
-//  PROVINCE STRUCTURE  (static — never changes)
-// ═══════════════════════════════════════════════════════════════════════
-const PROV_INFO = {
-  'Koshi':         {seats:28, info:'14 districts', ecn:'pradesh-1'},
-  'Madhesh':       {seats:32, info:'8 districts',  ecn:'pradesh-2'},
-  'Bagmati':       {seats:55, info:'13 districts', ecn:'pradesh-3'},
-  'Gandaki':       {seats:28, info:'11 districts', ecn:'pradesh-4'},
-  'Lumbini':       {seats:36, info:'12 districts', ecn:'pradesh-5'},
-  'Karnali':       {seats:24, info:'10 districts', ecn:'pradesh-6'},
-  'Sudurpashchim': {seats:29, info:'9 districts',  ecn:'pradesh-7'},
-};
-
-// ═══════════════════════════════════════════════════════════════════════
-//  KEY CONSTITUENCIES  (always shown regardless of API data)
-//  Updated with real March 7 data — real vote counts from ECN/Ekantipur
-// ═══════════════════════════════════════════════════════════════════════
-const KEY_SEATS = [
-  {
-    name:'Jhapa-5', dist:'Jhapa', prov:'Koshi', pct:90, dec:false,
-    note:'🔥 Balen Shah vs KP Sharma Oli',
-    cands:[
-      {n:'Balen Shah',        p:'Rastriya Swatantra Party', v:34000},
-      {n:'KP Sharma Oli',     p:'CPN-UML',                  v:20000},
-      {n:'Ranjit Tamang',     p:'Nepali Communist Party',   v:800},
-    ]
-  },
-  {
-    name:'Chitwan-2', dist:'Chitwan', prov:'Bagmati', pct:60, dec:false,
-    note:'RSP President Rabi Lamichhane leading',
-    cands:[
-      {n:'Rabi Lamichhane',   p:'Rastriya Swatantra Party', v:6700},
-      {n:'Asmin Ghimire',     p:'CPN-UML',                  v:2329},
-      {n:'Meena K. Kharel',   p:'Nepali Congress',          v:2322},
-    ]
-  },
-  {
-    name:'Chitwan-3', dist:'Chitwan', prov:'Bagmati', pct:55, dec:false,
-    note:'Sobita Gautam (RSP) vs Renu Dahal (NCP)',
-    cands:[
-      {n:'Sobita Gautam',     p:'Rastriya Swatantra Party', v:4941},
-      {n:'Renu Dahal',        p:'Nepali Communist Party',   v:2958},
-      {n:'Shankar Thapaliya', p:'CPN-UML',                  v:535},
-      {n:'Tekprasad Gurung',  p:'Nepali Congress',          v:276},
-    ]
-  },
-  {
-    name:'Sarlahi-4', dist:'Sarlahi', prov:'Madhesh', pct:65, dec:false,
-    note:'Gagan Thapa (NC) trailing Amresh Singh (RSP)',
-    cands:[
-      {n:'Amresh Kr. Singh',  p:'Rastriya Swatantra Party', v:4323},
-      {n:'Gagan Thapa',       p:'Nepali Congress',          v:1245},
-      {n:'Rajnish Ray',       p:'Nepali Communist Party',   v:379},
-    ]
-  },
-  {
-    name:'Kathmandu-1', dist:'Kathmandu', prov:'Bagmati', pct:100, dec:true,
-    note:'Ranju Darshana wins for RSP',
-    cands:[
-      {n:'Ranju Darshana Neupane', p:'Rastriya Swatantra Party', v:32000},
-      {n:'Gagan Thapa (2019)',      p:'Nepali Congress',          v:21000},
-      {n:'UML Candidate',           p:'CPN-UML',                  v:7000},
-    ]
-  },
-  {
-    name:'Rupandehi-2', dist:'Rupandehi', prov:'Lumbini', pct:80, dec:false,
-    note:'RSP leading Bishnu Poudel (UML)',
-    cands:[
-      {n:'Sulav Kharel',      p:'Rastriya Swatantra Party', v:10519},
-      {n:'Bishnu Poudel',     p:'CPN-UML',                  v:2193},
-    ]
-  },
-  {
-    name:'Bhaktapur-2', dist:'Bhaktapur', prov:'Bagmati', pct:75, dec:false,
-    note:'RSP dominant in Bhaktapur',
-    cands:[
-      {n:'Rajiv Khatri',      p:'Rastriya Swatantra Party', v:7002},
-      {n:'Mahesh Basnet',     p:'CPN-UML',                  v:2538},
-      {n:'NC Candidate',      p:'Nepali Congress',          v:580},
-    ]
-  },
-  {
-    name:'Dang-2', dist:'Dang', prov:'Lumbini', pct:100, dec:true,
-    note:'Final result declared — RSP wins',
-    cands:[
-      {n:'Bipin Kumar Acharya',p:'Rastriya Swatantra Party', v:43559},
-      {n:'Shankar Pokhrel',    p:'CPN-UML',                  v:15287},
-      {n:'Kiran Ghimire',      p:'Nepali Congress',          v:11558},
-    ]
-  },
-  {
-    name:'Rukum East', dist:'Rukum East', prov:'Lumbini', pct:50, dec:false,
-    note:'Prachanda (NCP) leading early count',
-    cands:[
-      {n:'Pushpa Kamal Dahal', p:'Nepali Communist Party',   v:8200},
-      {n:'RSP Candidate',      p:'Rastriya Swatantra Party', v:4100},
-      {n:'NC Candidate',       p:'Nepali Congress',          v:2200},
-    ]
-  },
-  {
-    name:'Parsa-2', dist:'Parsa', prov:'Madhesh', pct:70, dec:false,
-    note:'RSP leads by 15,000+ votes',
-    cands:[
-      {n:'Sushil Kr. Kanu',   p:'Rastriya Swatantra Party', v:26364},
-      {n:'Ajay Kr. Chaurasiya',p:'Nepali Congress',         v:10557},
-    ]
-  },
-  {
-    name:'Makwanpur-1', dist:'Makwanpur', prov:'Bagmati', pct:65, dec:false,
-    note:'RSP leads comfortably',
-    cands:[
-      {n:'Prakash Gautam',    p:'Rastriya Swatantra Party', v:22414},
-      {n:'Rameshwor Rana',    p:'CPN-UML',                  v:4727},
-      {n:'Mahalaxmi Upadhyay',p:'Nepali Congress',          v:4320},
-    ]
-  },
-  {
-    name:'Dailekh-2', dist:'Dailekh', prov:'Karnali', pct:80, dec:false,
-    note:'UML holding on in Karnali',
-    cands:[
-      {n:'Laxmi P. Pokharel', p:'CPN-UML',         v:10243},
-      {n:'Dikpal Kr. Shahi',  p:'Nepali Congress', v:7001},
-    ]
-  },
+/* ═══════════════════════════════════════════
+   DATA  — update won/lead numbers here when results change
+   Source: https://election.nepsebajar.com/en
+═══════════════════════════════════════════ */
+const DATA = [
+  { name:'Rastriya Swatantra Party',    abbr:'RSP', color:'var(--rsp)', won:86, lead:37 },
+  { name:'Nepali Congress',             abbr:'NC',  color:'var(--nc)',  won:12, lead:6  },
+  { name:'Nepal Communist Party (UML)', abbr:'UML', color:'var(--uml)', won:7,  lead:5  },
+  { name:'Nepali Communist Party',      abbr:'NCP', color:'var(--ncp)', won:4,  lead:3  },
+  { name:'Shram Sanskriti Party',       abbr:'SSP', color:'var(--ssp)', won:0,  lead:3  },
+  { name:'Rastriya Prajatantra Party',  abbr:'RPP', color:'var(--rpp)', won:1,  lead:0  },
+  { name:'Independent',                 abbr:'IND', color:'var(--ind)', won:1,  lead:0  },
 ];
 
-// ═══════════════════════════════════════════════════════════════════════
-//  FALLBACK PARTY DATA  (used if API is down — last known as of Mar 7)
-// ═══════════════════════════════════════════════════════════════════════
-const FALLBACK = [
-  {name:'Rastriya Swatantra Party', won:53, lead:67},
-  {name:'Nepali Congress',          won:4,  lead:22},
-  {name:'CPN-UML',                  won:1,  lead:11},
-  {name:'Nepali Communist Party',   won:2,  lead:10},
-  {name:'Rastriya Prajatantra Party',won:0, lead:4 },
-  {name:'Janata Samajbadi Party',   won:0,  lead:3 },
-  {name:'Shram Sanskriti Party',    won:0,  lead:3 },
-  {name:'Independent',              won:0,  lead:2 },
-];
-
-// ═══════════════════════════════════════════════════════════════════════
-//  API FETCH  — electionapi.osac.org.np (scrapes ekantipur → ECN)
-// ═══════════════════════════════════════════════════════════════════════
-const API_SUMMARY = 'https://electionapi.osac.org.np/summary';
-// CORS proxies as fallback
-const CORS = url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-
-async function fetchSummary() {
-  // Try direct first (API has CORS open)
-  try {
-    const r = await fetch(API_SUMMARY, {signal:AbortSignal.timeout(12000)});
-    if (r.ok) {
-      const j = await r.json();
-      if (j && (j.federal || Array.isArray(j))) return j;
-    }
-  } catch(_) {}
-
-  // Fallback via allorigins proxy
-  try {
-    const r = await fetch(CORS(API_SUMMARY), {signal:AbortSignal.timeout(18000)});
-    if (r.ok) {
-      const j = await r.json();
-      const raw = j?.contents;
-      if (raw) return JSON.parse(raw);
-    }
-  } catch(_) {}
-
-  return null;
+/* ── resolve CSS var to hex for use in inline non-CSS contexts ── */
+function resolveColor(v) {
+  if (!v.startsWith('var(')) return v;
+  const name = v.slice(4,-1);
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  PARSE API RESPONSE  → normalised party array
-// ═══════════════════════════════════════════════════════════════════════
-function parseParties(apiData) {
-  if (!apiData) return null;
+/* ═══════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════ */
+function render() {
+  const top  = DATA[0];
+  const topC = resolveColor(top.color);
+  const topT = top.won + top.lead;
+  const allW = DATA.reduce((s,p) => s + p.won,  0);
+  const allL = DATA.reduce((s,p) => s + p.lead, 0);
+  const maxS = Math.max(...DATA.map(p => p.won + p.lead), 1);
 
-  let list = [];
+  /* Hero stat */
+  document.getElementById('hero-n').textContent    = topT;
+  document.getElementById('hero-abbr').textContent = top.abbr;
 
-  // Format 1: { federal: [ {party_name, won, leading, ...} ] }
-  if (apiData.federal && Array.isArray(apiData.federal)) {
-    list = apiData.federal;
-  }
-  // Format 2: flat array
-  else if (Array.isArray(apiData)) {
-    list = apiData;
-  }
-  // Format 3: { parties: [...] }
-  else if (apiData.parties) {
-    list = apiData.parties;
-  }
+  /* Summary cards */
+  document.getElementById('s-won').textContent  = allW;
+  document.getElementById('s-lead').textContent = allL;
 
-  if (!list.length) return null;
+  /* Majority bar */
+  const pct    = Math.min((topT / 275) * 100, 100).toFixed(2);
+  const needed = Math.max(0, 138 - topT);
+  document.getElementById('maj-pname').textContent = top.name;
+  document.getElementById('maj-pname').style.color = topC;
+  document.getElementById('maj-note').textContent  =
+    needed > 0
+      ? `${top.abbr} needs ${needed} more seats for majority`
+      : `✅ ${top.abbr} has reached majority!`;
 
-  return list
-    .map(p => ({
-      name:  p.party_name || p.name || p.party || 'Unknown',
-      won:   parseInt(p.won  || p.elected  || p.wins    || 0),
-      lead:  parseInt(p.lead || p.leading  || p.leads   || 0),
-    }))
-    .filter(p => p.name && p.name !== 'Unknown')
-    .sort((a,b) => (b.won+b.lead) - (a.won+a.lead));
-}
+  setTimeout(() => {
+    const fill = document.getElementById('maj-fill');
+    fill.style.width      = pct + '%';
+    fill.style.background = `linear-gradient(90deg, ${topC}cc, ${topC})`;
+  }, 400);
 
-// ═══════════════════════════════════════════════════════════════════════
-//  RENDER FUNCTIONS
-// ═══════════════════════════════════════════════════════════════════════
+  /* Party table */
+  const maxT = maxS;
+  let html = '', sepDone = false;
 
-function renderSummary(parties) {
-  const won   = parties.reduce((s,p)=>s+p.won,  0);
-  const lead  = parties.reduce((s,p)=>s+p.lead, 0);
-  const total = won + lead;
+  DATA.forEach((p, i) => {
+    const tot = p.won + p.lead;
+    const c   = resolveColor(p.color);
+    const w   = ((tot / maxT) * 100).toFixed(1);
+    const rank = i < 3 ? `r${i+1}` : '';
 
-  document.getElementById('s-won').textContent   = won;
-  document.getElementById('s-lead').textContent  = lead;
-  document.getElementById('s-total').textContent = total;
-  document.getElementById('m-dec').textContent   = won;
-
-  // leading party
-  const top = parties[0];
-  const pct = Math.min((total/275)*100, 100).toFixed(1);
-  document.getElementById('maj-fill').style.width = pct + '%';
-
-  const needed = Math.max(0, 138 - total);
-  const m = pmeta(top?.name||'');
-  document.getElementById('maj-fill').style.background = m.color;
-  document.getElementById('maj-note').textContent =
-    top
-      ? `${top.name} (${m.id}) has ${top.won+top.lead} seats total · ${needed > 0 ? `needs ${needed} more for majority` : '✅ Majority reached!'}`
-      : 'Counting in progress…';
-}
-
-function renderParties(parties) {
-  const max = Math.max(...parties.map(p=>p.won+p.lead), 1);
-  let html = '', majDone = false;
-
-  parties.forEach((p, i) => {
-    const total = p.won + p.lead;
-    if (!majDone && i > 0 && total < 138) {
-      html += `<tr class="maj-sep"><td colspan="5">── 138 seats majority threshold ──</td></tr>`;
-      majDone = true;
+    if (!sepDone && i > 0 && tot < 15) {
+      html += `<tr class="sep-row"><td colspan="5">── 138-seat majority threshold ──</td></tr>`;
+      sepDone = true;
     }
-    const m = pmeta(p.name);
-    const w = ((total/max)*100).toFixed(1);
-    html += `<tr>
-      <td style="font-size:.6rem;color:#888;text-align:center">${i+1}</td>
-      <td><div style="display:flex;align-items:center;gap:.5rem">
-        <div class="p-dot" style="background:${m.color}"></div>
-        <div>
-          <div class="p-name" style="color:${m.color}">${p.name}</div>
-          <div class="p-id">${m.id}</div>
+
+    html += `
+    <tr>
+      <td><div class="rank ${rank}">${i+1}</div></td>
+      <td>
+        <div class="party-cell">
+          <div class="party-color-bar" style="background:${c}"></div>
+          <div>
+            <div class="party-name-main">${p.name}</div>
+            <span class="party-abbr-tag" style="background:${c}18;color:${c};border:1px solid ${c}33">${p.abbr}</span>
+          </div>
         </div>
-      </div></td>
-      <td class="t-won" style="color:${m.color}">${p.won > 0 ? p.won : '—'}</td>
-      <td class="t-lead">${p.lead > 0 ? '+'+p.lead : '—'}</td>
-      <td class="t-tot">
-        <div class="t-tot-n" style="color:${m.color}">${total}</div>
-        <div class="bar-bg"><div class="bar-f" style="width:${w}%;background:${m.color}"></div></div>
+      </td>
+      <td class="won-cell" style="color:${c}">${p.won > 0 ? p.won : '<span style="color:var(--ink3);font-size:.9rem">—</span>'}</td>
+      <td class="lead-cell ${p.lead===0?'zero':''}" style="color:${p.lead>0?c:''}">${p.lead > 0 ? '+'+p.lead : '—'}</td>
+      <td class="total-cell">
+        <div class="total-n" style="color:${c}">${tot}</div>
+        <div class="total-bar">
+          <div class="total-bar-fill" style="width:${w}%;background:${c}"></div>
+        </div>
       </td>
     </tr>`;
   });
 
-  if (!majDone) html += `<tr class="maj-sep"><td colspan="5">── 138 seats majority threshold ──</td></tr>`;
-  document.getElementById('ptbody').innerHTML = html;
-}
-
-function renderProvinces(parties) {
-  const top3 = parties.slice(0, 3);
-
-  document.getElementById('prov-grid').innerHTML = Object.entries(PROV_INFO).map(([name, info]) => {
-    // Approximate seat distribution per province based on overall party standings
-    const totalSeats = top3.reduce((s,p)=>s+(p.won+p.lead), 0) || 1;
-    const lead = {};
-    top3.forEach(p => {
-      lead[p.name] = Math.max(1, Math.round(((p.won+p.lead)/totalSeats) * info.seats * 0.85));
-    });
-
-    const ents   = Object.entries(lead).sort((a,b)=>b[1]-a[1]);
-    const topE   = ents[0];
-    const topM   = pmeta(topE?.[0]||'');
-    const segs   = ents.map(([n,v]) => {
-      const c = pmeta(n).color;
-      return `<div class="prov-seg" style="width:${((v/info.seats)*100).toFixed(1)}%;background:${c}"></div>`;
-    }).join('');
-    const legend = ents.map(([n,v]) => {
-      const c = pmeta(n).color;
-      const id = pmeta(n).id;
-      return `<div class="leg-i"><span class="leg-dot" style="background:${c}"></span>${id}: ~${v}</div>`;
-    }).join('');
-
-    return `<div class="prov-card">
-      <div class="prov-name">${name}</div>
-      <div class="prov-meta">${info.seats} FPTP seats · ${info.info}</div>
-      <div class="prov-lead" style="color:${topM.color}">Leading: ${topM.id}</div>
-      <div class="prov-bar">${segs}</div>
-      <div class="prov-leg">${legend}</div>
-    </div>`;
-  }).join('');
-}
-
-function renderConstituencies() {
-  document.getElementById('const-grid').innerHTML = KEY_SEATS.map(c => {
-    const sorted = [...c.cands].sort((a,b)=>(b.v||0)-(a.v||0));
-    const tag    = c.dec
-      ? '<span class="cc-tag tag-d">Declared</span>'
-      : '<span class="cc-tag tag-c">Counting</span>';
-    const note   = c.note
-      ? `<div style="padding:.18rem .78rem;font-size:.57rem;color:var(--gold);font-style:italic">${c.note}</div>` : '';
-    const cands  = sorted.map((cd,i) => {
-      const m = pmeta(cd.p);
-      return `<div class="cr ${i===0?'w':''}">
-        <div class="cr-rank">${i+1}</div>
-        <div class="cr-n">${cd.n}</div>
-        <div class="cr-p" style="background:${m.color}22;color:${m.color};border:1px solid ${m.color}55">${m.id}</div>
-        <div class="cr-v">${(cd.v||0).toLocaleString()}</div>
-      </div>`;
-    }).join('');
-    return `<div class="cc">
-      <div class="cc-head"><div class="cc-name">${c.name}</div>${tag}</div>
-      ${note}
-      <div class="cand-list">${cands}</div>
-      <div class="cc-foot"><span>${c.dist} · ${c.prov}</span><span>${c.pct}% counted</span></div>
-    </div>`;
-  }).join('');
-}
-
-// ═══════════════════════════════════════════════════════════════════════
-//  CLOCK
-// ═══════════════════════════════════════════════════════════════════════
-function tickClock() {
-  const now = new Date();
-  const npt = new Date(now.getTime() + (5*3600+45*60)*1000 + now.getTimezoneOffset()*60000);
-  document.getElementById('clock').textContent =
-    npt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase() +
-    '\n' +
-    npt.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}) + ' NPT';
-}
-tickClock();
-setInterval(tickClock, 1000);
-
-// ═══════════════════════════════════════════════════════════════════════
-//  COUNTDOWN
-// ═══════════════════════════════════════════════════════════════════════
-const INTERVAL = 180; // 3 minutes
-let countdown  = INTERVAL;
-let timer      = null;
-
-function startCountdown() {
-  countdown = INTERVAL;
-  clearInterval(timer);
-  timer = setInterval(() => {
-    countdown--;
-    const m = Math.floor(countdown/60), s = countdown%60;
-    const el = document.getElementById('next-tick');
-    if (el) el.textContent = `${m}:${String(s).padStart(2,'0')}`;
-    if (countdown <= 0) { clearInterval(timer); loadData(); }
-  }, 1000);
-}
-
-// ═══════════════════════════════════════════════════════════════════════
-//  LOAD
-// ═══════════════════════════════════════════════════════════════════════
-async function loadData() {
-  const spin = document.getElementById('spin');
-  const msg  = document.getElementById('fetch-msg');
-  spin.classList.add('on');
-  msg.textContent = 'Fetching live results from Election Commission Nepal…';
-  msg.className   = '';
-
-  try {
-    const raw     = await fetchSummary();
-    const parties = parseParties(raw);
-
-    if (parties && parties.length >= 2) {
-      renderSummary(parties);
-      renderParties(parties);
-      renderProvinces(parties);
-      renderConstituencies();
-
-      const now = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-      msg.innerHTML = `<span class="fetch-ok">✓ Live data from Ekantipur / ECN · updated ${now}</span>`;
-    } else {
-      throw new Error('API returned no usable data');
-    }
-  } catch(err) {
-    // Use fallback
-    renderSummary(FALLBACK);
-    renderParties(FALLBACK);
-    renderProvinces(FALLBACK);
-    renderConstituencies();
-    msg.innerHTML = `<span class="fetch-err">⚠ Live fetch failed (${err.message}) — showing last known results (Mar 7 ~4:40 PM NPT). Retrying in 3 min.</span>`;
+  if (!sepDone) {
+    html += `<tr class="sep-row"><td colspan="5">── 138-seat majority threshold ──</td></tr>`;
   }
 
-  spin.classList.remove('on');
-  startCountdown();
+  document.getElementById('tbody').innerHTML = html;
 }
 
-// ─── boot ───────────────────────────────────────────────────────────────
-loadData();
+/* ═══════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════ */
+function buildTicker() {
+  const items = [
+    { color:'var(--rsp)', text:'RSP leads with 123 seats (86 won + 37 leading)' },
+    { color:'var(--nc)',  text:'Nepali Congress second with 18 seats' },
+    { color:'var(--uml)', text:'CPN-UML third with 12 seats' },
+    { color:'var(--rsp)', text:'Rabi Lamichhane wins Chitwan-2 by 39,838 votes' },
+    { color:'var(--rsp)', text:'RSP dominant across all 7 provinces' },
+    { color:'var(--ncp)', text:'Prachanda (NCP) leads in Rukum East' },
+    { color:'var(--rsp)', text:'RSP projected to win historic majority' },
+    { color:'#4ade80',    text:'Counting ongoing · data updated March 8, 2026' },
+  ];
+
+  // duplicate for seamless loop
+  const all = [...items, ...items];
+  const track = document.getElementById('ticker-track');
+  track.innerHTML = all.map(item => {
+    const c = resolveColor(item.color);
+    return `<span class="tick-item">
+      <span class="tick-dot" style="background:${c}"></span>
+      ${item.text}
+    </span><span class="tick-sep">◆</span>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════
+   NPT CLOCK
+═══════════════════════════════════════════ */
+function updateClock() {
+  const d = new Date(Date.now() + (5*60+45)*60000);
+  const pad = n => String(n).padStart(2,'0');
+  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('clock-date').textContent =
+    `${days[d.getUTCDay()]}, ${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  document.getElementById('clock-time').textContent =
+    `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
+}
+
+/* ═══════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════ */
+render();
+buildTicker();
+updateClock();
+setInterval(updateClock, 1000);
 </script>
 </body>
 </html>
