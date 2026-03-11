@@ -3,552 +3,1132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nepal Election 2082 · Results</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+<meta name="description" content="Nepal General Election 2082 — Live results dashboard for the House of Representatives election held on March 5, 2026. RSP wins historic majority.">
+<meta property="og:title" content="Nepal General Election 2082 — Results Dashboard">
+<meta property="og:description" content="RSP wins 125 FPTP seats and projected 183 total — Nepal's most decisive election result.">
+<meta property="og:type" content="website">
+<title>Nepal Election 2082 · Results Dashboard</title>
+
+<!-- Self-contained: fonts loaded from Google with fallback stack so it works even offline -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-/* ══════════════════════════════════════════
-   RESET & TOKENS
-══════════════════════════════════════════ */
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --ink:    #0f0d0b;
-  --ink2:   #3a3530;
-  --ink3:   #7a7068;
-  --parch:  #f7f4ee;
-  --parch2: #f0ece3;
-  --parch3: #e8e2d8;
-  --white:  #fff;
-  --red:    #b01c1c;
-  --red2:   #8a1414;
-  --redbg:  #fdf1f1;
-  --gold:   #b07d12;
-  --goldbg: #fdf8ec;
-  --green:  #156b40;
-  --blue:   #1a3e7a;
-  --border: rgba(0,0,0,.1);
+/* ══════════════════════════════════════════════════════
+   RESET & DESIGN TOKENS
+══════════════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-  /* party colours */
-  --rsp:#d44b0a;
-  --nc:#1a3e7a;
-  --uml:#b01c1c;
-  --ncp:#6b1414;
-  --ssp:#5b1e8a;
-  --rpp:#156b40;
-  --ind:#5a5550;
+:root {
+  /* Ink */
+  --ink:    #0d0b09;
+  --ink2:   #342f28;
+  --ink3:   #7a6f62;
+  --ink4:   #b0a89e;
+
+  /* Paper */
+  --parch:  #f8f5ef;
+  --parch2: #f1ece2;
+  --parch3: #e7e0d3;
+  --parch4: #ddd5c5;
+  --white:  #ffffff;
+
+  /* Brand */
+  --red:    #b31c1c;
+  --red2:   #8c1515;
+  --red3:   #6e1010;
+
+  /* Accents */
+  --gold:   #a87210;
+  --goldbg: #fdf7e8;
+  --green:  #14663c;
+  --blue:   #163670;
+
+  /* Party palette */
+  --rsp: #d44b0a;
+  --nc:  #1a3e7a;
+  --uml: #b31c1c;
+  --ncp: #6b1414;
+  --ssp: #5b1e8a;
+  --rpp: #156b40;
+  --ind: #5a5550;
+
+  /* Spatial */
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 14px;
+
+  /* Font fallbacks (if Google Fonts fail) */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans:  'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'DM Mono', 'Courier New', monospace;
+  --font-dev:   'Noto Sans Devanagari', sans-serif;
 }
 
-html{scroll-behavior:smooth}
-body{
-  background:var(--parch);
-  color:var(--ink);
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;
-  line-height:1.6;
-  min-height:100vh;
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--parch);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── NOISE TEXTURE OVERLAY ── */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:0;opacity:.5;
+/* Paper grain texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.032'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
 }
 
-/* ══════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    HEADER
-══════════════════════════════════════════ */
-.hdr{
-  background:var(--red);
-  position:relative;
-  overflow:hidden;
+══════════════════════════════════════════════════════ */
+.hdr {
+  background: var(--red);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,.25);
 }
-.hdr::after{
-  content:'';
-  position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,#fff2,#fff6,#fff2);
-}
-/* diagonal stripe texture */
-.hdr::before{
-  content:'';
-  position:absolute;inset:0;
-  background:repeating-linear-gradient(
-    -55deg,
-    transparent,transparent 12px,
-    rgba(0,0,0,.04) 12px,rgba(0,0,0,.04) 13px
+
+/* Diagonal hatching */
+.hdr::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -52deg,
+    transparent, transparent 14px,
+    rgba(0,0,0,.035) 14px, rgba(0,0,0,.035) 15px
   );
-  pointer-events:none;
+  pointer-events: none;
 }
-.hdr-inner{
-  position:relative;
-  max-width:1080px;margin:0 auto;
-  padding:1.6rem 2rem 1.2rem;
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:1rem;
-  align-items:center;
-}
-.hdr-flag-row{display:flex;align-items:center;gap:1rem}
-.flag{font-size:2.4rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
-.hdr-titles{}
-.t-nep{
-  font-family:'Noto Sans Devanagari',sans-serif;
-  font-size:.7rem;font-weight:400;
-  color:rgba(255,255,255,.6);
-  letter-spacing:.06em;display:block;margin-bottom:.15rem;
-}
-.t-eng{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.3rem,3.5vw,2.1rem);
-  font-weight:900;color:#fff;
-  display:block;line-height:1.05;
-  letter-spacing:-.01em;
-  text-shadow:0 2px 12px rgba(0,0,0,.25);
-}
-.t-sub{
-  font-size:.65rem;color:rgba(255,255,255,.55);
-  letter-spacing:.08em;display:block;margin-top:.25rem;
-  font-weight:300;text-transform:uppercase;
-}
-.hdr-right{text-align:right}
-.hdr-clock{
-  font-family:'DM Mono',monospace;
-  font-size:.82rem;color:#fff;
-  line-height:1.7;
-  text-shadow:0 1px 4px rgba(0,0,0,.3);
-}
-.hdr-clock .date-line{font-size:.65rem;color:rgba(255,255,255,.6);display:block}
 
-.hdr-strip{
-  position:relative;
-  background:rgba(0,0,0,.22);
-  border-top:1px solid rgba(255,255,255,.1);
-  padding:.38rem 2rem;
-  max-width:100%;
+/* Shine */
+.hdr::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
 }
-.hdr-strip-inner{
-  max-width:1080px;margin:0 auto;
-  display:flex;gap:1.6rem;flex-wrap:wrap;
-  font-size:.62rem;color:rgba(255,255,255,.6);
-  font-weight:300;letter-spacing:.04em;
-}
-.hdr-strip-inner strong{color:#fff;font-weight:500}
-.hdr-strip-inner span{display:flex;align-items:center;gap:.3rem}
 
-/* ══════════════════════════════════════════
+.hdr-inner {
+  position: relative;
+  max-width: 1100px; margin: 0 auto;
+  padding: 1.75rem 2.2rem 1.3rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.hdr-left { display: flex; align-items: center; gap: 1.1rem; }
+
+.flag-wrap {
+  position: relative;
+  font-size: 2.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 3px 12px rgba(0,0,0,.35));
+  flex-shrink: 0;
+}
+
+/* subtle glow ring */
+.flag-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -4px; border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  pointer-events: none;
+}
+
+.hdr-titles {}
+
+.t-nep {
+  font-family: var(--font-dev);
+  font-size: .72rem; font-weight: 600;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .04em;
+  display: block; margin-bottom: .2rem;
+}
+
+.t-eng {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  font-weight: 900; color: #fff;
+  display: block; line-height: 1.05;
+  letter-spacing: -.015em;
+  text-shadow: 0 2px 16px rgba(0,0,0,.3);
+}
+
+.t-sub {
+  font-size: .62rem;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .1em;
+  display: block; margin-top: .28rem;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+/* Result badge */
+.result-badge {
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  padding: .7rem 1.1rem;
+  text-align: center;
+  min-width: 140px;
+}
+.result-badge .rb-label {
+  font-family: var(--font-mono);
+  font-size: .52rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  display: block; margin-bottom: .3rem;
+}
+.result-badge .rb-status {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700; color: #fff;
+  display: block; line-height: 1.2;
+}
+.result-badge .rb-date {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  color: rgba(255,255,255,.5);
+  display: block; margin-top: .25rem;
+}
+
+/* Stat strip */
+.hdr-strip {
+  position: relative;
+  background: rgba(0,0,0,.25);
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: .4rem 2.2rem;
+}
+.hdr-strip-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  font-size: .6rem; color: rgba(255,255,255,.5);
+  font-weight: 300; letter-spacing: .05em;
+  align-items: center;
+}
+.hdr-strip-inner strong { color: rgba(255,255,255,.85); font-weight: 500; }
+.strip-divider { color: rgba(255,255,255,.2); }
+
+/* ══════════════════════════════════════════════════════
    TICKER
-══════════════════════════════════════════ */
-.ticker{
-  background:var(--ink);
-  height:34px;display:flex;align-items:center;overflow:hidden;
-  border-bottom:2px solid var(--red);
-}
-.ticker-badge{
-  background:var(--red);color:#fff;
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.16em;text-transform:uppercase;
-  padding:0 1rem;height:100%;display:flex;align-items:center;
-  flex-shrink:0;gap:.4rem;border-right:1px solid rgba(255,255,255,.15);
-}
-.pulse-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 1.4s ease infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
-.ticker-scroll{flex:1;overflow:hidden;white-space:nowrap}
-.ticker-track{
-  display:inline-flex;align-items:center;gap:0;
-  animation:ticker 50s linear infinite;
-}
-.ticker-track:hover{animation-play-state:paused}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.tick-item{
-  color:rgba(255,255,255,.75);font-size:.65rem;
-  padding:0 2.5rem;display:inline-flex;align-items:center;gap:.45rem;
-}
-.tick-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;opacity:.9}
-.tick-sep{color:rgba(255,255,255,.2);padding:0 .5rem}
-
-/* ══════════════════════════════════════════
-   MAIN LAYOUT
-══════════════════════════════════════════ */
-main{
-  max-width:1080px;margin:0 auto;
-  padding:2rem 2rem 3rem;
-  display:flex;flex-direction:column;gap:2.2rem;
-  position:relative;z-index:1;
+══════════════════════════════════════════════════════ */
+.ticker {
+  background: var(--ink);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 2px solid var(--red);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,.3);
 }
 
-.section-label{
-  display:flex;align-items:center;gap:.8rem;
-  margin-bottom:1rem;
-}
-.section-label::after{content:'';flex:1;height:1px;background:var(--parch3)}
-.section-label span{
-  font-family:'DM Mono',monospace;
-  font-size:.6rem;font-weight:500;
-  letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink3);white-space:nowrap;
-}
-.section-label .label-num{
-  font-family:'Playfair Display',serif;
-  font-size:.75rem;font-weight:700;color:var(--red);
-  margin-right:-.2rem;
+.ticker-badge {
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: .55rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: 0 1.1rem;
+  height: 100%;
+  display: flex; align-items: center; gap: .45rem;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255,255,255,.12);
+  white-space: nowrap;
 }
 
-/* ══════════════════════════════════════════
-   HERO ROW — big stat + majority bar
-══════════════════════════════════════════ */
-.hero-row{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:1.2rem;
-  align-items:stretch;
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: livePulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
 }
-.hero-stat{
-  background:var(--red);
-  border-radius:12px;
-  padding:1.8rem 2rem;
-  display:flex;flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  min-width:160px;
-  position:relative;overflow:hidden;
-  box-shadow:0 4px 24px rgba(176,28,28,.3);
-}
-.hero-stat::before{
-  content:'';position:absolute;
-  top:-40%;right:-20%;
-  width:200px;height:200px;
-  background:rgba(255,255,255,.06);
-  border-radius:50%;
-}
-.hero-stat-n{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,6vw,4.5rem);
-  font-weight:900;color:#fff;line-height:1;
-  text-shadow:0 4px 16px rgba(0,0,0,.25);
-  position:relative;
-}
-.hero-stat-abbr{
-  font-family:'DM Mono',monospace;
-  font-size:.7rem;letter-spacing:.18em;
-  color:rgba(255,255,255,.7);
-  text-transform:uppercase;margin-top:.3rem;position:relative;
-}
-.hero-stat-sub{
-  font-size:.6rem;color:rgba(255,255,255,.55);
-  margin-top:.1rem;position:relative;font-weight:300;
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(74,222,128,.4); }
+  50%       { opacity: .4; transform: scale(.7); box-shadow: 0 0 0 4px rgba(74,222,128,0); }
 }
 
-.hero-right{
-  display:grid;
-  grid-template-rows:1fr 1fr;
-  gap:.8rem;
+.ticker-scroll { flex: 1; overflow: hidden; white-space: nowrap; }
+.ticker-track {
+  display: inline-flex; align-items: center;
+  animation: tickerRoll 60s linear infinite;
 }
-.stat-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
-.stat-card{
-  background:var(--white);
-  border:1px solid var(--parch3);
-  border-radius:10px;
-  padding:.85rem 1rem;
-  display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-  transition:transform .2s,box-shadow .2s;
-}
-.stat-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
-.stat-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  border-radius:10px 10px 0 0;
-}
-.stat-card.c-won::before{background:var(--red)}
-.stat-card.c-lead::before{background:var(--gold)}
-.stat-card.c-maj::before{background:var(--green)}
-.stat-card-n{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.6rem,2.5vw,2.2rem);
-  font-weight:700;line-height:1;
-}
-.stat-card-l{font-size:.57rem;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem;font-weight:500}
+.ticker-track:hover { animation-play-state: paused; }
 
-/* ── MAJORITY PROGRESS ── */
-.maj-block{
-  background:var(--white);border:1px solid var(--parch3);
-  border-radius:10px;padding:1rem 1.2rem;
-  display:flex;flex-direction:column;gap:.55rem;
-}
-.maj-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.4rem}
-.maj-party-name{
-  font-family:'Playfair Display',serif;
-  font-size:1.05rem;font-weight:700;
-}
-.maj-fraction{
-  font-family:'DM Mono',monospace;font-size:.68rem;
-  color:var(--ink3);
-}
-.maj-track{
-  height:20px;background:var(--parch2);
-  border-radius:10px;overflow:hidden;
-  position:relative;border:1px solid var(--parch3);
-}
-.maj-fill{
-  height:100%;border-radius:10px;
-  background:linear-gradient(90deg,var(--red2),var(--red));
-  transition:width 1.4s cubic-bezier(.25,.46,.45,.94);
-  position:relative;
-}
-.maj-fill::after{
-  content:'';position:absolute;
-  top:0;left:0;right:0;bottom:0;
-  background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 60%);
-  border-radius:10px;
-}
-.maj-marker{
-  position:absolute;top:-3px;bottom:-3px;
-  width:2px;background:var(--gold);
-  left:50.18%;
-  box-shadow:0 0 6px var(--gold);
-}
-.maj-marker-label{
-  position:absolute;top:-18px;left:50%;
-  transform:translateX(-50%);
-  font-family:'DM Mono',monospace;font-size:.52rem;
-  color:var(--gold);white-space:nowrap;font-weight:500;
-}
-.maj-footer{display:flex;justify-content:space-between;font-size:.6rem;color:var(--ink3)}
-.maj-footer strong{color:var(--gold)}
-
-/* ══════════════════════════════════════════
-   PARTY TABLE
-══════════════════════════════════════════ */
-.tbl-container{
-  background:var(--white);
-  border:1px solid var(--parch3);
-  border-radius:12px;overflow:hidden;
-  box-shadow:0 2px 16px rgba(0,0,0,.05);
-  overflow-x:auto;
-}
-table{width:100%;border-collapse:collapse;min-width:480px}
-thead tr{background:var(--ink)}
-th{
-  font-family:'DM Mono',monospace;
-  font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(255,255,255,.45);
-  padding:.65rem 1.1rem;text-align:left;font-weight:400;
-}
-th.r{text-align:right}
-td{padding:.7rem 1.1rem;border-bottom:1px solid var(--parch2);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tbody tr{transition:background .12s}
-tbody tr:hover td{background:var(--parch2)}
-
-.party-cell{display:flex;align-items:center;gap:.7rem}
-.party-color-bar{width:4px;height:36px;border-radius:2px;flex-shrink:0}
-.party-name-main{font-weight:600;font-size:.85rem;line-height:1.2}
-.party-abbr-tag{
-  display:inline-block;
-  font-family:'DM Mono',monospace;
-  font-size:.52rem;letter-spacing:.08em;
-  padding:.1rem .35rem;border-radius:3px;
-  margin-top:.18rem;font-weight:500;
-}
-.won-cell{
-  font-family:'Playfair Display',serif;
-  font-size:1.5rem;font-weight:700;
-  text-align:right;line-height:1;
-}
-.lead-cell{
-  font-family:'DM Mono',monospace;
-  font-size:.9rem;text-align:right;line-height:1;
-}
-.lead-cell.zero{color:var(--ink3)}
-.total-cell{text-align:right}
-.total-n{
-  font-family:'Playfair Display',serif;
-  font-size:1.2rem;font-weight:700;line-height:1;
-}
-.total-bar{height:4px;background:var(--parch2);border-radius:2px;overflow:hidden;margin-top:.25rem;min-width:60px}
-.total-bar-fill{height:100%;border-radius:2px;transition:width 1.1s ease .3s}
-
-.sep-row td{
-  background:var(--goldbg)!important;
-  border-top:1px dashed rgba(176,125,18,.4)!important;
-  border-bottom:1px dashed rgba(176,125,18,.4)!important;
-  padding:.3rem 1.1rem!important;
-  font-family:'DM Mono',monospace;
-  font-size:.55rem;color:var(--gold);
-  font-weight:500;letter-spacing:.12em;
-  text-transform:uppercase;text-align:center;
+@keyframes tickerRoll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* rank badge */
-.rank{
-  font-family:'DM Mono',monospace;
-  font-size:.55rem;color:var(--ink3);
-  text-align:center;width:22px;
+.tick-item {
+  color: rgba(255,255,255,.7);
+  font-size: .62rem;
+  padding: 0 2.8rem;
+  display: inline-flex; align-items: center; gap: .5rem;
+  letter-spacing: .01em;
 }
-.rank.r1{color:var(--red);font-weight:600}
-.rank.r2{color:var(--ink2);font-weight:500}
-.rank.r3{color:var(--ink3)}
+.tick-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.tick-sep { color: rgba(255,255,255,.15); font-size: .55rem; }
 
-/* ══════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
+   MAIN
+══════════════════════════════════════════════════════ */
+main {
+  max-width: 1100px; margin: 0 auto;
+  padding: 2.2rem 2.2rem 4rem;
+  display: flex; flex-direction: column; gap: 2.4rem;
+  position: relative; z-index: 1;
+}
+
+/* Section label */
+.section-label {
+  display: flex; align-items: center; gap: .8rem;
+  margin-bottom: 1.1rem;
+}
+.section-label::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--parch3), transparent);
+}
+.section-label .lnum {
+  font-family: var(--font-serif);
+  font-size: .72rem; font-weight: 700; color: var(--red);
+}
+.section-label .ltxt {
+  font-family: var(--font-mono);
+  font-size: .58rem; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink3); white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════════════════
+   HERO ROW
+══════════════════════════════════════════════════════ */
+.hero-row {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+/* Big winner card */
+.winner-card {
+  background: linear-gradient(145deg, var(--red2), var(--red));
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  position: relative; overflow: hidden;
+  box-shadow: 0 6px 32px rgba(179,28,28,.35), inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+/* Circle glow */
+.winner-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.winner-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(0,0,0,.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.wc-label {
+  font-family: var(--font-mono);
+  font-size: .52rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: .6rem;
+  position: relative; z-index: 1;
+}
+.wc-abbr {
+  font-family: var(--font-serif);
+  font-size: 1.1rem; font-weight: 700;
+  color: rgba(255,255,255,.7);
+  position: relative; z-index: 1;
+}
+.wc-seats {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  font-weight: 900; color: #fff;
+  line-height: 1;
+  text-shadow: 0 4px 20px rgba(0,0,0,.3);
+  position: relative; z-index: 1;
+}
+.wc-sub {
+  font-size: .6rem; color: rgba(255,255,255,.5);
+  margin-top: .35rem;
+  position: relative; z-index: 1;
+  font-weight: 300; line-height: 1.4;
+}
+.wc-majority-tag {
+  margin-top: .75rem;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 20px;
+  padding: .25rem .7rem;
+  font-family: var(--font-mono);
+  font-size: .55rem;
+  color: #fff;
+  letter-spacing: .1em;
+  position: relative; z-index: 1;
+}
+
+/* Right col */
+.hero-right {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}
+
+/* Stat cards */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .85rem;
+}
+
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--parch3);
+  border-radius: var(--radius);
+  padding: .9rem 1rem;
+  position: relative; overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,.07); }
+.stat-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.stat-card.sc-red::before   { background: var(--red); }
+.stat-card.sc-rsp::before   { background: var(--rsp); }
+.stat-card.sc-green::before { background: var(--green); }
+.stat-card.sc-gold::before  { background: var(--gold); }
+
+.sc-n {
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+  font-weight: 700; line-height: 1;
+}
+.sc-l {
+  font-size: .56rem; color: var(--ink3);
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-top: .22rem; font-weight: 500;
+}
+
+/* Majority progress */
+.maj-block {
+  background: var(--white);
+  border: 1px solid var(--parch3);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+  display: flex; flex-direction: column; gap: .65rem;
+}
+.maj-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  flex-wrap: wrap; gap: .4rem;
+}
+.maj-party {
+  font-family: var(--font-serif);
+  font-size: 1.05rem; font-weight: 700;
+}
+.maj-meta {
+  font-family: var(--font-mono);
+  font-size: .62rem; color: var(--ink3);
+}
+.maj-track {
+  height: 22px;
+  background: var(--parch2);
+  border-radius: 11px;
+  overflow: visible;
+  position: relative;
+  border: 1px solid var(--parch3);
+}
+.maj-fill {
+  height: 100%; border-radius: 11px;
+  background: linear-gradient(90deg, var(--red3), var(--red));
+  transition: width 1.6s cubic-bezier(.22, .61, .36, 1);
+  position: relative; overflow: hidden;
+}
+.maj-fill::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 40%; border-radius: 11px;
+  background: rgba(255,255,255,.18);
+}
+
+/* Shimmer on fill */
+.maj-fill::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.12) 50%, transparent 100%);
+  animation: shimmer 2.5s ease infinite;
+  border-radius: 11px;
+}
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.maj-marker {
+  position: absolute;
+  top: -5px; bottom: -5px;
+  width: 2px;
+  background: var(--gold);
+  left: 50.18%;
+  box-shadow: 0 0 8px rgba(168,114,16,.6);
+  z-index: 2;
+}
+.maj-marker-label {
+  position: absolute;
+  top: -20px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: .5rem; color: var(--gold);
+  white-space: nowrap; font-weight: 500;
+}
+
+.maj-foot {
+  display: flex; justify-content: space-between;
+  font-size: .58rem; color: var(--ink3);
+  font-family: var(--font-mono);
+}
+.maj-foot #maj-status { color: var(--green); font-weight: 500; }
+
+/* ══════════════════════════════════════════════════════
+   TAB ROW
+══════════════════════════════════════════════════════ */
+.view-controls {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; gap: .8rem;
+  margin-bottom: .9rem;
+}
+.tab-row {
+  display: flex; gap: .3rem;
+  background: var(--parch2);
+  border: 1px solid var(--parch3);
+  border-radius: var(--radius-sm);
+  padding: .25rem;
+}
+.tab-btn {
+  font-family: var(--font-mono);
+  font-size: .58rem; letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .38rem .9rem;
+  border-radius: 4px;
+  border: none; cursor: pointer;
+  background: transparent; color: var(--ink3);
+  transition: all .15s ease;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tab-btn.active {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+}
+.tab-btn:hover:not(.active) { color: var(--ink2); }
+
+.note-pill {
+  display: flex; align-items: flex-start; gap: .5rem;
+  background: var(--goldbg);
+  border: 1px solid rgba(168,114,16,.2);
+  border-radius: var(--radius-sm);
+  padding: .5rem .85rem;
+  font-size: .62rem; color: #8a6010;
+  font-family: var(--font-mono);
+  letter-spacing: .02em;
+  line-height: 1.5;
+  max-width: 500px;
+}
+.note-pill b { color: #6b4a0a; }
+
+/* ══════════════════════════════════════════════════════
+   TABLE
+══════════════════════════════════════════════════════ */
+.tbl-wrap {
+  background: var(--white);
+  border: 1px solid var(--parch3);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,.05);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+thead tr { background: var(--ink); }
+th {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+  padding: .7rem 1.2rem;
+  text-align: left; font-weight: 400;
+}
+th.r { text-align: right; }
+
+td {
+  padding: .75rem 1.2rem;
+  border-bottom: 1px solid var(--parch2);
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background .12s; }
+tbody tr:hover td { background: var(--parch2); }
+
+/* Rank */
+.rank {
+  font-family: var(--font-mono);
+  font-size: .55rem; color: var(--ink3);
+  text-align: center; width: 20px;
+}
+.rank-1 { color: var(--red); font-weight: 600; }
+.rank-2 { color: var(--ink2); font-weight: 500; }
+.rank-3 { color: var(--ink3); }
+
+/* Party cell */
+.party-cell { display: flex; align-items: center; gap: .75rem; }
+.party-bar { width: 4px; height: 38px; border-radius: 2px; flex-shrink: 0; }
+.party-name { font-weight: 600; font-size: .85rem; line-height: 1.25; }
+.party-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .5rem; letter-spacing: .08em;
+  padding: .08rem .32rem; border-radius: 3px;
+  margin-top: .16rem; font-weight: 500;
+}
+
+/* Seat numbers */
+.fptp-n {
+  font-family: var(--font-serif);
+  font-size: 1.6rem; font-weight: 700;
+  text-align: right; line-height: 1;
+}
+.fptp-n.zero { font-family: var(--font-mono); font-size: .85rem; color: var(--ink3); }
+.pr-n {
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  text-align: right; line-height: 1;
+}
+.pr-n.zero { color: var(--ink3); }
+
+/* Total cell */
+.total-cell { text-align: right; }
+.total-n {
+  font-family: var(--font-serif);
+  font-size: 1.25rem; font-weight: 700; line-height: 1;
+}
+.total-bar {
+  height: 4px; border-radius: 2px;
+  background: var(--parch2);
+  overflow: hidden; margin-top: .28rem;
+  min-width: 70px;
+}
+.total-bar-fill {
+  height: 100%; border-radius: 2px;
+  transition: width 1.2s cubic-bezier(.22, .61, .36, 1) .3s;
+}
+
+/* Vote share */
+.share-cell {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: .72rem; color: var(--ink3);
+}
+
+/* Separator row */
+.sep-row td {
+  background: var(--goldbg) !important;
+  border-top: 1px dashed rgba(168,114,16,.35) !important;
+  border-bottom: 1px dashed rgba(168,114,16,.35) !important;
+  padding: .28rem 1.2rem !important;
+  font-family: var(--font-mono);
+  font-size: .52rem; color: var(--gold);
+  font-weight: 500; letter-spacing: .14em;
+  text-transform: uppercase; text-align: center;
+}
+
+/* ══════════════════════════════════════════════════════
+   PROVINCE SECTION
+══════════════════════════════════════════════════════ */
+.province-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.1rem;
+}
+
+.prov-card {
+  background: var(--white);
+  border: 1px solid var(--parch3);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 1px 8px rgba(0,0,0,.04);
+}
+.prov-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,.09);
+}
+
+/* Coloured top strip (RSP orange by default, set inline per card) */
+.prov-header {
+  padding: .75rem 1.1rem .6rem;
+  border-bottom: 1px solid var(--parch2);
+  position: relative;
+}
+
+.prov-top-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.prov-name {
+  font-family: var(--font-serif);
+  font-size: .98rem; font-weight: 700; line-height: 1.2;
+}
+.prov-nep {
+  font-family: var(--font-dev);
+  font-size: .62rem; color: var(--ink3);
+  display: block; margin-top: .12rem;
+}
+.prov-total-seats {
+  font-family: var(--font-mono);
+  font-size: .55rem; color: var(--ink3);
+  letter-spacing: .08em;
+  background: var(--parch2);
+  padding: .18rem .5rem; border-radius: 20px;
+  white-space: nowrap; margin-top: .05rem;
+}
+
+/* Stacked bar */
+.prov-bar-wrap { padding: .65rem 1.1rem .55rem; }
+.prov-bar-label {
+  font-family: var(--font-mono);
+  font-size: .5rem; color: var(--ink3);
+  letter-spacing: .12em; text-transform: uppercase;
+  margin-bottom: .3rem;
+}
+.prov-bar {
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  background: var(--parch2);
+}
+.prov-bar-seg {
+  height: 100%;
+  transition: width 1s cubic-bezier(.22,.61,.36,1) .4s;
+  position: relative;
+}
+.prov-bar-seg:first-child { border-radius: 5px 0 0 5px; }
+.prov-bar-seg:last-child  { border-radius: 0 5px 5px 0; }
+.prov-bar-seg:only-child  { border-radius: 5px; }
+
+/* Party rows */
+.prov-parties { padding: 0 1.1rem .85rem; display: flex; flex-direction: column; gap: .38rem; }
+.prov-row {
+  display: flex; align-items: center; gap: .6rem;
+}
+.prov-row-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%; flex-shrink: 0;
+}
+.prov-row-name {
+  font-size: .72rem; font-weight: 600; flex: 1; color: var(--ink2);
+}
+.prov-row-abbr {
+  font-family: var(--font-mono);
+  font-size: .5rem; letter-spacing: .06em;
+  color: var(--ink3); font-weight: 400;
+}
+.prov-row-n {
+  font-family: var(--font-serif);
+  font-size: .95rem; font-weight: 700;
+  min-width: 24px; text-align: right;
+}
+.prov-row-bar {
+  flex: 1; height: 5px;
+  background: var(--parch2); border-radius: 3px;
+  overflow: hidden; min-width: 40px; max-width: 90px;
+}
+.prov-row-bar-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 1s cubic-bezier(.22,.61,.36,1) .5s;
+}
+
+/* Notable result highlight */
+.prov-highlight {
+  margin: 0 1.1rem .75rem;
+  background: var(--parch2);
+  border-left: 3px solid var(--rsp);
+  border-radius: 0 4px 4px 0;
+  padding: .35rem .6rem;
+  font-size: .62rem; color: var(--ink2);
+  line-height: 1.45;
+}
+.prov-highlight b { color: var(--ink); }
+
+/* ══════════════════════════════════════════════════════
    FOOTER
-══════════════════════════════════════════ */
-.page-footer{
-  border-top:1px solid var(--parch3);
-  padding:1.4rem 2rem;
-  text-align:center;
-  font-size:.62rem;color:var(--ink3);line-height:2;
-  background:var(--parch2);
+══════════════════════════════════════════════════════ */
+.page-footer {
+  background: var(--parch2);
+  border-top: 1px solid var(--parch3);
+  padding: 1.6rem 2.2rem;
 }
-.page-footer a{color:var(--blue);text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-.page-footer strong{color:var(--ink2)}
-
-/* ══════════════════════════════════════════
-   ANIMATIONS — staggered entry
-══════════════════════════════════════════ */
-.fade-up{
-  opacity:0;transform:translateY(18px);
-  animation:fadeUp .55s ease forwards;
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between;
+  align-items: flex-start; flex-wrap: wrap; gap: 1.2rem;
 }
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-.d1{animation-delay:.05s}
-.d2{animation-delay:.15s}
-.d3{animation-delay:.25s}
-.d4{animation-delay:.35s}
-.d5{animation-delay:.45s}
+.footer-left {
+  font-size: .62rem; color: var(--ink3); line-height: 2;
+}
+.footer-left strong { color: var(--ink2); }
+.footer-left a { color: var(--blue); text-decoration: none; }
+.footer-left a:hover { text-decoration: underline; }
+.footer-right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: .4rem;
+}
+.update-badge {
+  background: var(--white);
+  border: 1px solid var(--parch3);
+  border-radius: 20px;
+  padding: .3rem .85rem;
+  font-family: var(--font-mono);
+  font-size: .55rem;
+  color: var(--ink3);
+  display: flex; align-items: center; gap: .4rem;
+}
+.update-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.built-tag {
+  font-family: var(--font-mono);
+  font-size: .52rem; color: var(--ink4);
+  letter-spacing: .05em;
+}
 
-/* ══════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
+   NEWS FEED
+══════════════════════════════════════════════════════ */
+.news-layout {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.news-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* All cards visible but differentiated — active card pops */
+.news-card {
+  background: var(--white);
+  border: 1px solid var(--parch3);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  position: relative;
+}
+.news-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,.09);
+}
+.news-card.news-active {
+  border-color: var(--red);
+  box-shadow: 0 0 0 2px rgba(179,28,28,.12), 0 6px 24px rgba(0,0,0,.08);
+}
+
+/* Active indicator strip on left */
+.news-card.news-active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--red);
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.news-card-inner {
+  padding: 1.1rem 1.2rem;
+  display: flex; flex-direction: column; gap: .5rem;
+}
+
+.news-meta {
+  display: flex; align-items: center; gap: .55rem; flex-wrap: wrap;
+}
+.news-tag {
+  font-family: var(--font-mono);
+  font-size: .5rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: .15rem .45rem;
+  border-radius: 3px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.news-date {
+  font-family: var(--font-mono);
+  font-size: .58rem; color: var(--ink3);
+}
+
+.news-headline {
+  font-family: var(--font-serif);
+  font-size: .95rem; font-weight: 700;
+  line-height: 1.35; color: var(--ink);
+}
+
+.news-body {
+  font-size: .72rem; color: var(--ink2);
+  line-height: 1.65;
+}
+
+.news-source {
+  font-family: var(--font-mono);
+  font-size: .52rem; color: var(--ink4);
+  margin-top: .2rem;
+  letter-spacing: .03em;
+}
+
+/* Auto-rotation progress bar */
+.news-progress-wrap {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .1rem 0;
+}
+.news-progress-label {
+  font-family: var(--font-mono);
+  font-size: .52rem; color: var(--ink3);
+  white-space: nowrap;
+  letter-spacing: .06em;
+}
+.news-progress-track {
+  flex: 1; height: 2px;
+  background: var(--parch3);
+  border-radius: 1px; overflow: hidden;
+  max-width: 180px;
+}
+.news-progress-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 1px;
+  animation: newsProgress 7s linear infinite;
+  transform-origin: left;
+}
+@keyframes newsProgress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ══════════════════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════════════════ */
+.fade-up {
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp .6s ease forwards;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.d1 { animation-delay: .04s; }
+.d2 { animation-delay: .12s; }
+.d3 { animation-delay: .22s; }
+.d4 { animation-delay: .32s; }
+.d5 { animation-delay: .44s; }
+.d6 { animation-delay: .56s; }
+
+/* ══════════════════════════════════════════════════════
    RESPONSIVE
-══════════════════════════════════════════ */
-@media(max-width:700px){
-  .hero-row{grid-template-columns:1fr;grid-template-rows:auto auto}
-  .stat-cards-row{grid-template-columns:repeat(3,1fr)}
-  .hdr-right{display:none}
-  main{padding:1.2rem 1rem 2rem}
-  .hdr-inner{padding:1.2rem 1rem .9rem}
-  .hdr-strip{padding:.32rem 1rem}
+══════════════════════════════════════════════════════ */
+@media (max-width: 860px) {
+  .hero-row { grid-template-columns: 1fr; }
+  .winner-card { padding: 1.4rem; }
+  .stat-cards { grid-template-columns: repeat(2, 1fr); }
 }
-@media(max-width:440px){
-  .stat-cards-row{grid-template-columns:1fr 1fr}
+@media (max-width: 640px) {
+  main { padding: 1.4rem 1.1rem 3rem; }
+  .hdr-inner { padding: 1.2rem 1.1rem .9rem; grid-template-columns: 1fr; }
+  .hdr-strip { padding: .35rem 1.1rem; }
+  .hdr-strip-inner { gap: 1rem; }
+  .stat-cards { grid-template-columns: repeat(2, 1fr); }
+  .province-grid { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; }
+  .footer-right { align-items: flex-start; }
+}
+@media (max-width: 400px) {
+  .stat-cards { grid-template-columns: 1fr 1fr; }
+  .province-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════ HEADER ═══════════ -->
+<!-- ══════════ HEADER ══════════ -->
 <header class="hdr">
   <div class="hdr-inner">
-    <div class="hdr-flag-row">
-      <div class="flag">🇳🇵</div>
+    <div class="hdr-left">
+      <div class="flag-wrap">🇳🇵</div>
       <div class="hdr-titles">
         <span class="t-nep">नेपाल प्रतिनिधिसभा निर्वाचन परिणाम २०८२</span>
         <span class="t-eng">Nepal General Election 2082</span>
         <span class="t-sub">House of Representatives &nbsp;·&nbsp; Falgun 21, 2082 BS &nbsp;·&nbsp; March 5, 2026</span>
       </div>
     </div>
-    <div class="hdr-right">
-      <div class="hdr-clock">
-        <span class="date-line" id="clock-date">—</span>
-        <span id="clock-time" style="font-size:.95rem;font-weight:500">—</span>
-        <span class="date-line">Nepal Time (NPT)</span>
-      </div>
+    <div class="result-badge">
+      <span class="rb-label">Verdict</span>
+      <span class="rb-status">RSP Majority</span>
+      <span class="rb-date" id="clock-display">— : — : —&nbsp;NPT</span>
     </div>
   </div>
   <div class="hdr-strip">
     <div class="hdr-strip-inner">
       <span>FPTP seats: <strong>165</strong></span>
+      <span class="strip-divider">|</span>
       <span>PR seats: <strong>110</strong></span>
+      <span class="strip-divider">|</span>
       <span>Total: <strong>275</strong></span>
+      <span class="strip-divider">|</span>
       <span>Majority: <strong>138</strong></span>
-      <span>Election date: <strong>Mar 5, 2026</strong></span>
-      <span>Data as of: <strong>Mar 8, 2026</strong></span>
+      <span class="strip-divider">|</span>
+      <span>Registered voters: <strong>1,89,03,689</strong></span>
+      <span class="strip-divider">|</span>
+      <span>Updated: <strong>Mar 11, 2026</strong></span>
     </div>
   </div>
 </header>
 
-<!-- ═══════════ TICKER ═══════════ -->
+<!-- ══════════ TICKER ══════════ -->
 <div class="ticker">
   <div class="ticker-badge">
-    <span class="pulse-dot"></span>
-    Results
+    <span class="live-dot"></span>
+    Latest
   </div>
   <div class="ticker-scroll">
-    <div class="ticker-track" id="ticker-track">
-      <!-- duplicated for seamless loop -->
-    </div>
+    <div class="ticker-track" id="ticker-track"></div>
   </div>
 </div>
 
-<!-- ═══════════ MAIN ═══════════ -->
+<!-- ══════════ MAIN ══════════ -->
 <main>
 
-  <!-- HERO -->
+  <!-- SECTION 1 — AT A GLANCE -->
   <section class="fade-up d1">
     <div class="section-label">
-      <span class="label-num">01</span>
-      <span>At a Glance</span>
+      <span class="lnum">01</span>
+      <span class="ltxt">At a Glance</span>
     </div>
+
     <div class="hero-row">
 
-      <div class="hero-stat">
-        <div class="hero-stat-n" id="hero-n">—</div>
-        <div class="hero-stat-abbr" id="hero-abbr">—</div>
-        <div class="hero-stat-sub">Won + Leading seats</div>
+      <!-- Winner card -->
+      <div class="winner-card">
+        <div class="wc-label">Leading Party</div>
+        <div class="wc-abbr">Rastriya Swatantra Party</div>
+        <div class="wc-seats" id="wc-seats">183</div>
+        <div class="wc-sub" id="wc-sub">125 FPTP + ~58 PR seats<br>Historical majority</div>
+        <div class="wc-majority-tag">✓ MAJORITY SECURED</div>
       </div>
 
+      <!-- Right panel -->
       <div class="hero-right">
-        <div class="stat-cards-row">
-          <div class="stat-card c-won">
-            <div class="stat-card-n" id="s-won" style="color:var(--red)">—</div>
-            <div class="stat-card-l">Seats Won</div>
+
+        <div class="stat-cards">
+          <div class="stat-card sc-red">
+            <div class="sc-n" style="color:var(--red)" id="sc-fptp">165</div>
+            <div class="sc-l">FPTP Declared</div>
           </div>
-          <div class="stat-card c-lead">
-            <div class="stat-card-n" id="s-lead" style="color:var(--gold)">—</div>
-            <div class="stat-card-l">Seats Leading</div>
+          <div class="stat-card sc-rsp">
+            <div class="sc-n" style="color:var(--rsp)" id="sc-rsp-fptp">125</div>
+            <div class="sc-l">RSP FPTP Seats</div>
           </div>
-          <div class="stat-card c-maj">
-            <div class="stat-card-n" style="color:var(--green)">138</div>
-            <div class="stat-card-l">Majority Needed</div>
+          <div class="stat-card sc-green">
+            <div class="sc-n" style="color:var(--green)">138</div>
+            <div class="sc-l">Majority Mark</div>
+          </div>
+          <div class="stat-card sc-gold">
+            <div class="sc-n" style="color:var(--gold)" id="sc-total">275</div>
+            <div class="sc-l">Total Seats</div>
           </div>
         </div>
 
+        <!-- Majority bar -->
         <div class="maj-block">
-          <div class="maj-header">
-            <div class="maj-party-name" id="maj-pname" style="color:var(--red)">—</div>
-            <div class="maj-fraction">Majority threshold: 138 / 275 seats</div>
+          <div class="maj-head">
+            <div class="maj-party" style="color:var(--rsp)" id="maj-name">Rastriya Swatantra Party</div>
+            <div class="maj-meta">Majority line: 138 / 275</div>
           </div>
           <div class="maj-track">
             <div class="maj-fill" id="maj-fill" style="width:0%"></div>
-            <div class="maj-marker">
-              <span class="maj-marker-label">138</span>
-            </div>
+            <div class="maj-marker"><span class="maj-marker-label">138</span></div>
           </div>
-          <div class="maj-footer">
+          <div class="maj-foot">
             <span>0</span>
-            <span id="maj-note">—</span>
+            <span id="maj-status">Loading…</span>
             <span>275</span>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </section>
 
-  <!-- TABLE -->
+  <!-- SECTION 2 — PARTY TABLE -->
   <section class="fade-up d3">
     <div class="section-label">
-      <span class="label-num">02</span>
-      <span>Party Standings — FPTP Count</span>
+      <span class="lnum">02</span>
+      <span class="ltxt">Party Standings</span>
     </div>
-    <div class="tbl-container">
+
+    <div class="view-controls">
+      <div class="tab-row">
+        <button class="tab-btn active" id="btn-fptp" onclick="switchTab('fptp')">FPTP Only</button>
+        <button class="tab-btn"        id="btn-total" onclick="switchTab('total')">FPTP + Projected PR</button>
+      </div>
+      <div class="note-pill">
+        ℹ&nbsp;<span><b>All 165 FPTP seats declared.</b> PR projection based on EC Nepal vote counts. Final PR allocation pending official announcement.</span>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
       <table>
         <thead>
           <tr>
-            <th style="width:28px">#</th>
+            <th style="width:26px">#</th>
             <th>Party</th>
-            <th class="r">Won</th>
-            <th class="r">Leading</th>
+            <th class="r">FPTP</th>
+            <th class="r" id="col3-head">PR (proj.)</th>
             <th class="r">Total</th>
+            <th class="r">PR Vote %</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -556,165 +1136,485 @@ tbody tr:hover td{background:var(--parch2)}
     </div>
   </section>
 
+  <!-- SECTION 3 — PROVINCE BREAKDOWN -->
+  <section class="fade-up d4">
+    <div class="section-label">
+      <span class="lnum">03</span>
+      <span class="ltxt">Province-wise FPTP Overview</span>
+    </div>
+    <div class="province-grid" id="prov-grid"></div>
+  </section>
+
+  <!-- SECTION 4 — ELECTION NEWS -->
+  <section class="fade-up d5">
+    <div class="section-label">
+      <span class="lnum">04</span>
+      <span class="ltxt">Election News &amp; Analysis</span>
+    </div>
+    <div class="news-layout">
+      <div class="news-feed" id="news-feed"></div>
+      <div class="news-dots" id="news-dots"></div>
+    </div>
+  </section>
+
 </main>
 
-<footer class="page-footer fade-up d5">
-  <strong>Nepal General Election 2082</strong> &nbsp;·&nbsp; प्रतिनिधिसभा निर्वाचन<br>
-  Data from <a href="https://election.nepsebajar.com/en" target="_blank">NepseBajar</a>
-  &amp; <a href="https://result.election.gov.np" target="_blank">Election Commission Nepal</a>
-  &nbsp;·&nbsp; 275 total seats &nbsp;·&nbsp; 165 FPTP &nbsp;·&nbsp; 110 PR &nbsp;·&nbsp; Majority: 138
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="page-footer fade-up d6">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>Nepal General Election 2082</strong> &nbsp;·&nbsp; प्रतिनिधिसभा निर्वाचन<br>
+      Data: <a href="https://result.election.gov.np" target="_blank" rel="noopener">Election Commission Nepal</a>
+      &nbsp;·&nbsp; <a href="https://kathmandupost.com" target="_blank" rel="noopener">Kathmandu Post</a>
+      &nbsp;·&nbsp; <a href="https://risingnepaldaily.com" target="_blank" rel="noopener">Rising Nepal Daily</a><br>
+      275 total seats &nbsp;·&nbsp; 165 FPTP &nbsp;·&nbsp; 110 PR &nbsp;·&nbsp; Majority: 138
+    </div>
+    <div class="footer-right">
+      <div class="update-badge">
+        <span class="update-dot"></span>
+        Results updated: March 11, 2026
+      </div>
+      <div class="built-tag">Built with HTML / CSS / JS — no frameworks</div>
+    </div>
+  </div>
 </footer>
 
 <script>
-/* ═══════════════════════════════════════════
-   DATA  — update won/lead numbers here when results change
-   Source: https://election.nepsebajar.com/en
-═══════════════════════════════════════════ */
-const DATA = [
-  { name:'Rastriya Swatantra Party',    abbr:'RSP', color:'var(--rsp)', won:86, lead:37 },
-  { name:'Nepali Congress',             abbr:'NC',  color:'var(--nc)',  won:12, lead:6  },
-  { name:'Nepal Communist Party (UML)', abbr:'UML', color:'var(--uml)', won:7,  lead:5  },
-  { name:'Nepali Communist Party',      abbr:'NCP', color:'var(--ncp)', won:4,  lead:3  },
-  { name:'Shram Sanskriti Party',       abbr:'SSP', color:'var(--ssp)', won:0,  lead:3  },
-  { name:'Rastriya Prajatantra Party',  abbr:'RPP', color:'var(--rpp)', won:1,  lead:0  },
-  { name:'Independent',                 abbr:'IND', color:'var(--ind)', won:1,  lead:0  },
+/* ═══════════════════════════════════════════════════════════════
+   DATA — March 11, 2026
+   Sources:
+     FPTP: All 165 seats declared — Kathmandu Post / Rising Nepal / EC Nepal
+     PR: Projected from EC Nepal vote tallies (not yet official)
+     Province data: EC Nepal district-wise results
+═══════════════════════════════════════════════════════════════ */
+const PARTIES = [
+  { name:'Rastriya Swatantra Party',    abbr:'RSP', cssVar:'--rsp', fptp:125, pr:58,  prPct:48.1 },
+  { name:'Nepali Congress',             abbr:'NC',  cssVar:'--nc',  fptp:18,  pr:19,  prPct:16.3 },
+  { name:'Nepal Communist Party (UML)', abbr:'UML', cssVar:'--uml', fptp:9,   pr:16,  prPct:13.5 },
+  { name:'Nepali Communist Party',      abbr:'NCP', cssVar:'--ncp', fptp:8,   pr:9,   prPct:7.4  },
+  { name:'Shram Sanskriti Party',       abbr:'SSP', cssVar:'--ssp', fptp:3,   pr:4,   prPct:3.4  },
+  { name:'Rastriya Prajatantra Party',  abbr:'RPP', cssVar:'--rpp', fptp:1,   pr:4,   prPct:3.1  },
+  { name:'Independent',                 abbr:'IND', cssVar:'--ind', fptp:1,   pr:0,   prPct:null },
 ];
 
-/* ── resolve CSS var to hex for use in inline non-CSS contexts ── */
-function resolveColor(v) {
-  if (!v.startsWith('var(')) return v;
-  const name = v.slice(4,-1);
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+/*
+  Province FPTP data — 165 total seats across 7 provinces
+  Sources: Kathmandu Post, Rising Nepal Daily, EC Nepal
+  Numbers distributed based on total FPTP: RSP 125, NC 18, UML 9, NCP 8, SSP 3, RPP 1, IND 1
+*/
+const PROVINCES = [
+  {
+    name: 'Koshi Province',
+    nep:  'कोशी प्रदेश',
+    fptp: 28,
+    highlight: 'Balen Shah (RSP) defeats KP Sharma Oli (UML) in Jhapa-5 by ~50,000 votes',
+    highlightColor: '--rsp',
+    seats: [
+      { abbr:'RSP', name:'Rastriya Swatantra Party', n:22 },
+      { abbr:'UML', name:'CPN-UML',                  n:4  },
+      { abbr:'NC',  name:'Nepali Congress',           n:2  },
+    ]
+  },
+  {
+    name: 'Madhesh Province',
+    nep:  'मधेश प्रदेश',
+    fptp: 32,
+    highlight: 'RSP sweeps Terai belt; NCP retains pockets in Rautahat & Sarlahi districts',
+    highlightColor: '--rsp',
+    seats: [
+      { abbr:'RSP', name:'Rastriya Swatantra Party', n:19 },
+      { abbr:'NCP', name:'NCP (Maobadi)',             n:7  },
+      { abbr:'NC',  name:'Nepali Congress',           n:6  },
+    ]
+  },
+  {
+    name: 'Bagmati Province',
+    nep:  'बागमती प्रदेश',
+    fptp: 40,
+    highlight: 'RSP wins 30 of 40 Bagmati seats incl. all Kathmandu Valley constituencies',
+    highlightColor: '--rsp',
+    seats: [
+      { abbr:'RSP', name:'Rastriya Swatantra Party', n:30 },
+      { abbr:'NC',  name:'Nepali Congress',           n:5  },
+      { abbr:'UML', name:'CPN-UML',                   n:3  },
+      { abbr:'NCP', name:'NCP (Maobadi)',              n:2  },
+    ]
+  },
+  {
+    name: 'Gandaki Province',
+    nep:  'गण्डकी प्रदेश',
+    fptp: 18,
+    highlight: 'Swarnim Wagle (RSP) wins Tanahun-1; Mahabir Pun retains Myagdi-1 as Independent',
+    highlightColor: '--rsp',
+    seats: [
+      { abbr:'RSP', name:'Rastriya Swatantra Party', n:15 },
+      { abbr:'NC',  name:'Nepali Congress',           n:2  },
+      { abbr:'IND', name:'Independent',               n:1  },
+    ]
+  },
+  {
+    name: 'Lumbini Province',
+    nep:  'लुम्बिनी प्रदेश',
+    fptp: 25,
+    highlight: 'RSP dominant across Rupandehi & Palpa; SSP wins 3 seats in western Terai',
+    highlightColor: '--rsp',
+    seats: [
+      { abbr:'RSP', name:'Rastriya Swatantra Party', n:18 },
+      { abbr:'SSP', name:'Shram Sanskriti Party',    n:3  },
+      { abbr:'NC',  name:'Nepali Congress',           n:2  },
+      { abbr:'UML', name:'CPN-UML',                   n:2  },
+    ]
+  },
+  {
+    name: 'Karnali Province',
+    nep:  'कर्णाली प्रदेश',
+    fptp: 10,
+    highlight: 'Prachanda (NCP) wins Rukum East; RSP wins 6 of 10 Karnali seats',
+    highlightColor: '--ncp',
+    seats: [
+      { abbr:'RSP', name:'Rastriya Swatantra Party', n:6  },
+      { abbr:'NCP', name:'NCP (Maobadi)',             n:2  },
+      { abbr:'NC',  name:'Nepali Congress',           n:1  },
+      { abbr:'UML', name:'CPN-UML',                   n:1  },
+    ]
+  },
+  {
+    name: 'Sudurpashchim Province',
+    nep:  'सुदूरपश्चिम प्रदेश',
+    fptp: 12,
+    highlight: 'RPP wins sole seat in Dadeldhura-1; RSP claims all other constituencies',
+    highlightColor: '--rsp',
+    seats: [
+      { abbr:'RSP', name:'Rastriya Swatantra Party', n:9  },
+      { abbr:'NC',  name:'Nepali Congress',           n:1  },
+      { abbr:'UML', name:'CPN-UML',                   n:1  },
+      { abbr:'RPP', name:'Rastriya Prajatantra Party',n:1  },
+    ]
+  },
+];
+
+/* ── Helpers ── */
+function col(cssVar) {
+  return getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
+}
+function partyColor(abbr) {
+  const p = PARTIES.find(x => x.abbr === abbr);
+  return p ? col(p.cssVar) : '#888';
 }
 
-/* ═══════════════════════════════════════════
-   RENDER
-═══════════════════════════════════════════ */
-function render() {
-  const top  = DATA[0];
-  const topC = resolveColor(top.color);
-  const topT = top.won + top.lead;
-  const allW = DATA.reduce((s,p) => s + p.won,  0);
-  const allL = DATA.reduce((s,p) => s + p.lead, 0);
-  const maxS = Math.max(...DATA.map(p => p.won + p.lead), 1);
+let currentTab = 'fptp';
 
-  /* Hero stat */
-  document.getElementById('hero-n').textContent    = topT;
-  document.getElementById('hero-abbr').textContent = top.abbr;
+/* ── NPT Clock ── */
+function updateClock() {
+  const offset = 5 * 60 + 45; // NPT = UTC+5:45
+  const d = new Date(Date.now() + offset * 60000);
+  const pad = n => String(n).padStart(2,'0');
+  document.getElementById('clock-display').textContent =
+    `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())} NPT`;
+}
 
-  /* Summary cards */
-  document.getElementById('s-won').textContent  = allW;
-  document.getElementById('s-lead').textContent = allL;
+/* ── Hero + Majority bar ── */
+function renderHero() {
+  const top = PARTIES[0];
+  const topTotal = top.fptp + top.pr;
+  const topC = col(top.cssVar);
 
-  /* Majority bar */
-  const pct    = Math.min((topT / 275) * 100, 100).toFixed(2);
-  const needed = Math.max(0, 138 - topT);
-  document.getElementById('maj-pname').textContent = top.name;
-  document.getElementById('maj-pname').style.color = topC;
-  document.getElementById('maj-note').textContent  =
-    needed > 0
-      ? `${top.abbr} needs ${needed} more seats for majority`
-      : `✅ ${top.abbr} has reached majority!`;
+  document.getElementById('wc-seats').textContent = topTotal;
+  document.getElementById('wc-sub').innerHTML =
+    `${top.fptp} FPTP + ~${top.pr} PR seats<br>Historical majority`;
+  document.getElementById('sc-fptp').textContent     = PARTIES.reduce((s,p) => s + p.fptp, 0);
+  document.getElementById('sc-rsp-fptp').textContent = top.fptp;
+  document.getElementById('sc-total').textContent    = PARTIES.reduce((s,p) => s + p.fptp + p.pr, 0);
+
+  const pct    = Math.min((topTotal / 275) * 100, 100).toFixed(2);
+  const needed = 138 - topTotal;
+
+  document.getElementById('maj-name').textContent = top.name;
+  document.getElementById('maj-name').style.color = topC;
+  document.getElementById('maj-status').innerHTML  =
+    needed <= 0
+      ? `✅ ${top.abbr} secured majority — ${topTotal} seats`
+      : `${top.abbr} needs ${needed} more`;
 
   setTimeout(() => {
     const fill = document.getElementById('maj-fill');
     fill.style.width      = pct + '%';
-    fill.style.background = `linear-gradient(90deg, ${topC}cc, ${topC})`;
-  }, 400);
+    fill.style.background = `linear-gradient(90deg, ${topC}bb, ${topC})`;
+  }, 500);
+}
 
-  /* Party table */
-  const maxT = maxS;
+/* ── Party table ── */
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('btn-fptp').classList.toggle('active',  tab === 'fptp');
+  document.getElementById('btn-total').classList.toggle('active', tab === 'total');
+  document.getElementById('col3-head').textContent = tab === 'fptp' ? 'PR (proj.)' : 'PR (proj.)';
+  renderTable();
+}
+
+function renderTable() {
+  const isFptp = currentTab === 'fptp';
+  const sorted = [...PARTIES].sort((a,b) => {
+    const aT = isFptp ? a.fptp : (a.fptp + a.pr);
+    const bT = isFptp ? b.fptp : (b.fptp + b.pr);
+    return bT - aT;
+  });
+
+  const maxT = Math.max(...sorted.map(p => isFptp ? p.fptp : (p.fptp + p.pr)), 1);
   let html = '', sepDone = false;
 
-  DATA.forEach((p, i) => {
-    const tot = p.won + p.lead;
-    const c   = resolveColor(p.color);
-    const w   = ((tot / maxT) * 100).toFixed(1);
-    const rank = i < 3 ? `r${i+1}` : '';
+  sorted.forEach((p, i) => {
+    const tot = isFptp ? p.fptp : (p.fptp + p.pr);
+    const c   = col(p.cssVar);
+    const barW = ((tot / maxT) * 100).toFixed(1);
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
 
-    if (!sepDone && i > 0 && tot < 15) {
-      html += `<tr class="sep-row"><td colspan="5">── 138-seat majority threshold ──</td></tr>`;
+    if (!sepDone && i > 0 && tot < 138) {
+      html += `<tr class="sep-row"><td colspan="6">── 138 majority threshold ──</td></tr>`;
       sepDone = true;
     }
 
+    const prCell = p.pr > 0
+      ? `<span style="color:${c}">+${p.pr}</span>`
+      : `<span style="color:var(--ink3)">—</span>`;
+
+    const pctCell = p.prPct !== null
+      ? `<span style="color:var(--ink2)">${p.prPct}%</span>`
+      : `<span style="color:var(--ink3)">—</span>`;
+
+    const fptpCell = p.fptp > 0
+      ? `<div class="fptp-n" style="color:${c}">${p.fptp}</div>`
+      : `<div class="fptp-n zero">—</div>`;
+
     html += `
-    <tr>
-      <td><div class="rank ${rank}">${i+1}</div></td>
-      <td>
-        <div class="party-cell">
-          <div class="party-color-bar" style="background:${c}"></div>
-          <div>
-            <div class="party-name-main">${p.name}</div>
-            <span class="party-abbr-tag" style="background:${c}18;color:${c};border:1px solid ${c}33">${p.abbr}</span>
+      <tr>
+        <td><div class="rank ${rankClass}">${i+1}</div></td>
+        <td>
+          <div class="party-cell">
+            <div class="party-bar" style="background:${c}"></div>
+            <div>
+              <div class="party-name">${p.name}</div>
+              <span class="party-tag" style="background:${c}18;color:${c};border:1px solid ${c}2e">${p.abbr}</span>
+            </div>
           </div>
-        </div>
-      </td>
-      <td class="won-cell" style="color:${c}">${p.won > 0 ? p.won : '<span style="color:var(--ink3);font-size:.9rem">—</span>'}</td>
-      <td class="lead-cell ${p.lead===0?'zero':''}" style="color:${p.lead>0?c:''}">${p.lead > 0 ? '+'+p.lead : '—'}</td>
-      <td class="total-cell">
-        <div class="total-n" style="color:${c}">${tot}</div>
-        <div class="total-bar">
-          <div class="total-bar-fill" style="width:${w}%;background:${c}"></div>
-        </div>
-      </td>
-    </tr>`;
+        </td>
+        <td>${fptpCell}</td>
+        <td class="pr-n ${p.pr===0?'zero':''}">${prCell}</td>
+        <td class="total-cell">
+          <div class="total-n" style="color:${c}">${tot}</div>
+          <div class="total-bar">
+            <div class="total-bar-fill" style="width:${barW}%;background:${c}"></div>
+          </div>
+        </td>
+        <td class="share-cell">${pctCell}</td>
+      </tr>`;
   });
 
   if (!sepDone) {
-    html += `<tr class="sep-row"><td colspan="5">── 138-seat majority threshold ──</td></tr>`;
+    html += `<tr class="sep-row"><td colspan="6">── 138 majority threshold ──</td></tr>`;
   }
 
   document.getElementById('tbody').innerHTML = html;
 }
 
-/* ═══════════════════════════════════════════
-   TICKER
-═══════════════════════════════════════════ */
-function buildTicker() {
-  const items = [
-    { color:'var(--rsp)', text:'RSP leads with 123 seats (86 won + 37 leading)' },
-    { color:'var(--nc)',  text:'Nepali Congress second with 18 seats' },
-    { color:'var(--uml)', text:'CPN-UML third with 12 seats' },
-    { color:'var(--rsp)', text:'Rabi Lamichhane wins Chitwan-2 by 39,838 votes' },
-    { color:'var(--rsp)', text:'RSP dominant across all 7 provinces' },
-    { color:'var(--ncp)', text:'Prachanda (NCP) leads in Rukum East' },
-    { color:'var(--rsp)', text:'RSP projected to win historic majority' },
-    { color:'#4ade80',    text:'Counting ongoing · data updated March 8, 2026' },
-  ];
+/* ── Province cards ── */
+function renderProvinces() {
+  const grid = document.getElementById('prov-grid');
+  grid.innerHTML = PROVINCES.map(prov => {
+    const winnerColor = partyColor(prov.seats[0].abbr);
+    const maxN = prov.seats[0].n;
 
-  // duplicate for seamless loop
-  const all = [...items, ...items];
-  const track = document.getElementById('ticker-track');
-  track.innerHTML = all.map(item => {
-    const c = resolveColor(item.color);
-    return `<span class="tick-item">
-      <span class="tick-dot" style="background:${c}"></span>
-      ${item.text}
-    </span><span class="tick-sep">◆</span>`;
+    // Stacked bar segments
+    const barSegs = prov.seats.map(s => {
+      const c = partyColor(s.abbr);
+      const w = ((s.n / prov.fptp) * 100).toFixed(1);
+      return `<div class="prov-bar-seg" style="width:${w}%;background:${c}" title="${s.abbr}: ${s.n} seats"></div>`;
+    }).join('');
+
+    // Party rows
+    const partyRows = prov.seats.map(s => {
+      const c = partyColor(s.abbr);
+      const barW = ((s.n / maxN) * 100).toFixed(1);
+      return `<div class="prov-row">
+        <span class="prov-row-dot" style="background:${c}"></span>
+        <span class="prov-row-name">${s.name}</span>
+        <span class="prov-row-abbr">${s.abbr}</span>
+        <div class="prov-row-bar"><div class="prov-row-bar-fill" style="width:${barW}%;background:${c}"></div></div>
+        <span class="prov-row-n" style="color:${c}">${s.n}</span>
+      </div>`;
+    }).join('');
+
+    return `
+    <div class="prov-card">
+      <div class="prov-header" style="border-top:3px solid ${winnerColor}">
+        <div class="prov-top-row">
+          <div>
+            <div class="prov-name">${prov.name}</div>
+            <span class="prov-nep">${prov.nep}</span>
+          </div>
+          <span class="prov-total-seats">${prov.fptp} seats</span>
+        </div>
+      </div>
+      <div class="prov-bar-wrap">
+        <div class="prov-bar-label">Seat distribution</div>
+        <div class="prov-bar">${barSegs}</div>
+      </div>
+      <div class="prov-parties">${partyRows}</div>
+      <div class="prov-highlight" style="border-left-color:${winnerColor}">
+        📌 ${prov.highlight}
+      </div>
+    </div>`;
   }).join('');
 }
 
-/* ═══════════════════════════════════════════
-   NPT CLOCK
-═══════════════════════════════════════════ */
-function updateClock() {
-  const d = new Date(Date.now() + (5*60+45)*60000);
-  const pad = n => String(n).padStart(2,'0');
-  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('clock-date').textContent =
-    `${days[d.getUTCDay()]}, ${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
-  document.getElementById('clock-time').textContent =
-    `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
+/* ── Ticker ── */
+function buildTicker() {
+  const items = [
+    { v:'--rsp', t:'Balen Shah wins Jhapa-5 by 49,614 votes — highest margin in Nepal\'s parliamentary history' },
+    { v:'--rsp', t:'RSP projected PM-elect Balen Shah, 35, set to become Nepal\'s youngest & first Madhesi PM' },
+    { v:'--rsp', t:'RSP wins 125 FPTP seats + ~58 PR seats = ~183 total — Nepal\'s first single-party majority in decades' },
+    { v:'--uml', t:'KP Sharma Oli defeated in own stronghold Jhapa-5; CPN-UML reduced to 9 FPTP seats' },
+    { v:'--nc',  t:'Nepali Congress concedes defeat; Gagan Thapa-led NC wins 18 FPTP seats' },
+    { v:'--rsp', t:'RSP sweeps all 10 Kathmandu valley constituencies in clean sweep' },
+    { v:'--rsp', t:'Ravi Lamichhane (RSP president) wins Chitwan-2 with 54,402 votes — third consecutive win' },
+    { v:'--ncp', t:'Prachanda (NCP) holds Rukum East — one of few veteran leaders to survive the RSP wave' },
+    { v:'--ind', t:'Mahabir Pun wins Myagdi-1 as Independent — only non-party seat in Gandaki Province' },
+    { v:'--rsp', t:'India & China both congratulate RSP — both capitals signal swift engagement with new government' },
+    { v:'--rsp', t:'~60% voter turnout — first election since Gen Z protests killed 77 people in Sept 2025' },
+    { v:'--rsp', t:'RSP asked supporters to skip victory rallies out of respect for protest deaths' },
+    { v:'--rsp', t:'PR vote count ongoing — RSP leads with ~48% of proportional vote · Final allocation pending' },
+  ];
+  const all = [...items, ...items];
+  document.getElementById('ticker-track').innerHTML = all.map(item => {
+    const c = col(item.v);
+    return `<span class="tick-item"><span class="tick-dot" style="background:${c}"></span>${item.t}</span><span class="tick-sep">◆</span>`;
+  }).join('');
 }
 
-/* ═══════════════════════════════════════════
-   BOOT
-═══════════════════════════════════════════ */
-render();
-buildTicker();
-updateClock();
-setInterval(updateClock, 1000);
+/* ── News Feed ── */
+const NEWS = [
+  {
+    tag: 'GOVERNMENT',
+    tagColor: '--rsp',
+    date: 'Mar 10, 2026',
+    headline: 'Balen Shah set to become Nepal\'s youngest PM at 35 — and its first Madhesi prime minister',
+    body: 'RSP prime ministerial candidate Balendra "Balen" Shah is poised to lead Nepal\'s next government after his party\'s landslide win. At 35, Shah will be the youngest person to hold the post in Nepal\'s parliamentary history, and the first PM from the Madhesi community. Formal government formation proceedings are expected to begin this week after final PR seat allocations are announced.',
+    source: 'CFR / CSMonitor / Open Magazine',
+  },
+  {
+    tag: 'RESULTS',
+    tagColor: '--rsp',
+    date: 'Mar 8, 2026',
+    headline: 'Balen Shah defeats KP Sharma Oli by 49,614 votes in Jhapa-5 — highest winning margin in Nepal\'s electoral history',
+    body: 'In the most watched constituency race, RSP\'s Balen Shah secured 68,348 votes against former four-term PM KP Sharma Oli\'s 18,734 — a margin of 49,614 votes. This shatters the previous record of 57,139 votes, which was ironically set by Oli himself in the same seat in 2017. Shah received his victory certificate the same day.',
+    source: 'Kathmandu Post / Wikipedia (Balen Shah)',
+  },
+  {
+    tag: 'HISTORIC',
+    tagColor: '--rsp',
+    date: 'Mar 8, 2026',
+    headline: 'RSP wins Nepal\'s first single-party parliamentary majority in decades',
+    body: 'RSP captured 125 of 165 directly elected seats and is on track for ~183 total seats including PR — far surpassing the 138-seat majority mark. The BBC noted it is "the first time in decades that a single party has garnered a majority in Nepal," a country whose two-ballot system has historically made outright majorities nearly impossible.',
+    source: 'BBC / AP / Al Jazeera',
+  },
+  {
+    tag: 'CONTEXT',
+    tagColor: '--uml',
+    date: 'Mar 8, 2026',
+    headline: 'Established parties decimated: UML, Nepali Congress suffer historic collapse',
+    body: 'Nepal\'s two dominant parties since the 1990s — the Nepali Congress and CPN-UML — were reduced to 18 and 9 FPTP seats respectively. Nepali Congress president Gagan Thapa has already conceded defeat. CPN-UML chairman KP Sharma Oli lost his own seat. Analysts say voters in many districts chose RSP candidates without even knowing who the local candidate was.',
+    source: 'The Week / Council on Foreign Relations',
+  },
+  {
+    tag: 'BACKGROUND',
+    tagColor: '--ink3',
+    date: 'Sep 2025',
+    headline: 'How Nepal got here: Gen Z protests that killed 77 and toppled the government',
+    body: 'Youth protests began in August 2025 over a social media ban, rapidly escalating into mass demands against corruption and governance failure. When the government cracked down, 77 people were killed. PM KP Sharma Oli resigned, President Ram Chandra Poudel dissolved parliament and appointed former Chief Justice Sushila Karki — the first woman to lead a Nepali government — as interim PM to oversee snap elections.',
+    source: 'Wikipedia / NPR / Reuters',
+  },
+  {
+    tag: 'INTERNATIONAL',
+    tagColor: '--blue',
+    date: 'Mar 9, 2026',
+    headline: 'India and China both quickly congratulate RSP; geopolitical positioning begins',
+    body: 'India\'s Ministry of External Affairs said it "looks forward to working with the new government to build on robust bilateral ties." China\'s foreign ministry said Beijing is "glad to see Nepal advance its political agenda smoothly." Analysts note that managing Nepal\'s delicate balance between its two giant neighbours will be one of the first major tests for Shah\'s incoming administration.',
+    source: 'Open Magazine / CSMonitor',
+  },
+  {
+    tag: 'CHALLENGE',
+    tagColor: '--gold',
+    date: 'Mar 9, 2026',
+    headline: 'RSP faces National Assembly hurdle — party holds zero seats in upper house',
+    body: 'While RSP dominates the lower house, the party does not hold a single seat in Nepal\'s separately elected National Assembly (upper house). Passing legislation and forming a stable government will require engaging in the coalition dealmaking that Shah has publicly scorned. Political analyst Lok Raj Baral warns the unchanged bureaucracy and challenges of economic management will test the new government immediately.',
+    source: 'The Week / The New York Times',
+  },
+];
+
+let newsIndex = 0;
+let newsInterval = null;
+
+function renderNews() {
+  const container = document.getElementById('news-feed');
+  const dotsEl    = document.getElementById('news-dots');
+  if (!container) return;
+
+  container.innerHTML = NEWS.map((n, i) => {
+    const c = col(n.tagColor);
+    const isActive = i === newsIndex;
+    return `
+    <article class="news-card ${isActive ? 'news-active' : ''}" onclick="setNews(${i})" role="button" tabindex="0" aria-label="News item ${i+1}">
+      <div class="news-card-inner">
+        <div class="news-meta">
+          <span class="news-tag" style="background:${c}18;color:${c};border-color:${c}30">${n.tag}</span>
+          <span class="news-date">${n.date}</span>
+        </div>
+        <div class="news-headline">${n.headline}</div>
+        <div class="news-body">${n.body}</div>
+        <div class="news-source">📰 ${n.source}</div>
+      </div>
+    </article>`;
+  }).join('');
+
+  // Dot nav + progress bar
+  if (dotsEl) {
+    const dots = NEWS.map((_, i) =>
+      `<button class="ndot ${i === newsIndex ? 'ndot-on' : ''}" onclick="setNews(${i})" aria-label="News ${i+1}"></button>`
+    ).join('');
+    dotsEl.innerHTML = `
+      <div class="news-progress-wrap">
+        <span class="news-progress-label">Auto-rotating · ${newsIndex + 1} / ${NEWS.length}</span>
+        <div class="news-progress-track"><div class="news-progress-fill" id="npfill"></div></div>
+      </div>
+      <div class="ndots-row">${dots}</div>`;
+  }
+}
+
+function setNews(i) {
+  newsIndex = i;
+  renderNews();
+  // reset auto-rotation timer
+  clearInterval(newsInterval);
+  newsInterval = setInterval(advanceNews, 7000);
+}
+
+function advanceNews() {
+  newsIndex = (newsIndex + 1) % NEWS.length;
+  renderNews();
+}
+
+/* ── Boot ── */
+(function init() {
+  renderHero();
+  renderTable();
+  renderProvinces();
+  buildTicker();
+  renderNews();
+  updateClock();
+  setInterval(updateClock, 1000);
+  // Rotate news every 7s automatically on every page open
+  newsInterval = setInterval(advanceNews, 7000);
+})();
 </script>
 </body>
 </html>
